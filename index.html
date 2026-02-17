@@ -119,7 +119,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .nav-dropdown .dropdown-menu.open { display: block; }
+        .nav-dropdown .dropdown-menu.open { 
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 99999;
+        }
 
         .dropdown-item {
             display: flex;
@@ -671,9 +677,15 @@
                         <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
                     </div>
                 </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
+                        <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
+                        <a href="calendrier.html" class="dropdown-item"><i class="fas fa-calendar"></i> Calendrier</a>
+                    </div>
+                </li>
                 <li class="nav-item"><a href="paris.html" class="nav-link"><i class="fas fa-dice"></i> Paris</a></li>
-                <li class="nav-item"><a href="calendrier.html" class="nav-link"><i class="fas fa-calendar"></i> Calendrier</a></li>
-                <li class="nav-item"><a href="classements.html" class="nav-link"><i class="fas fa-trophy"></i> Classements</a></li>
                 <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link" style="color: #5865F2;"><i class="fab fa-discord"></i> Discord</a></li>
             </ul>
         </div>

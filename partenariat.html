@@ -113,7 +113,13 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .nav-dropdown .dropdown-menu.open { display: block; }
+        .nav-dropdown .dropdown-menu.open { 
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 99999;
+        }
         .dropdown-item {
             display: flex;
             align-items: center;
@@ -821,13 +827,19 @@
             });
         }
     
-        // Dropdown avec délai
+        // Dropdown - ferme les autres quand on en ouvre un
         const dropdowns = document.querySelectorAll('.nav-dropdown');
         dropdowns.forEach(dropdown => {
             let closeTimer;
             const menu = dropdown.querySelector('.dropdown-menu');
 
             dropdown.addEventListener('mouseenter', () => {
+                // Fermer tous les autres dropdowns
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        other.querySelector('.dropdown-menu').classList.remove('open');
+                    }
+                });
                 clearTimeout(closeTimer);
                 menu.classList.add('open');
             });
@@ -847,6 +859,13 @@
                     menu.classList.remove('open');
                 }, 300);
             });
+        });
+
+        // Fermer dropdown en cliquant ailleurs
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                dropdowns.forEach(d => d.querySelector('.dropdown-menu').classList.remove('open'));
+            }
         });
     </script>
 </body>
