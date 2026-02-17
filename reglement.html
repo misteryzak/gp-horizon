@@ -840,19 +840,11 @@
             icon.classList.toggle('fa-times');
         });
     
-        // Bloquer TOUS les dropdowns pendant 1 seconde au chargement
+        // Dropdown
         const allMenus = document.querySelectorAll('.dropdown-menu');
-        allMenus.forEach(m => { m.style.display = 'none'; m.style.visibility = 'hidden'; });
-        
-        setTimeout(() => {
-            allMenus.forEach(m => { m.style.display = ''; m.style.visibility = ''; });
-        }, 1000);
-
-        // Dropdown - CLICK uniquement
         document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
             const menu = dropdown.querySelector('.dropdown-menu');
             const trigger = dropdown.querySelector('.nav-link');
-
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = menu.classList.contains('open');
@@ -860,8 +852,6 @@
                 if (!isOpen) menu.classList.add('open');
             });
         });
-
-        // Fermer en cliquant ailleurs
         document.addEventListener('click', () => {
             allMenus.forEach(m => m.classList.remove('open'));
         });

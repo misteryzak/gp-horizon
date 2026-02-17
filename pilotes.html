@@ -41,7 +41,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 60px 20px; }
         
         /* Cards Grid */
-        .pilots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-top: 50px; }
+        .pilots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; max-width: 100%; }
         
         /* CARD 3D FLIP */
         .pilot-card-container { perspective: 1000px; height: 480px; }
@@ -357,20 +357,12 @@
         }
 
         window.addEventListener('load', loadPilots);
-    
-        // Bloquer TOUS les dropdowns pendant 1 seconde au chargement
-        const allMenus = document.querySelectorAll('.dropdown-menu');
-        allMenus.forEach(m => { m.style.display = 'none'; m.style.visibility = 'hidden'; });
-        
-        setTimeout(() => {
-            allMenus.forEach(m => { m.style.display = ''; m.style.visibility = ''; });
-        }, 1000);
 
-        // Dropdown - CLICK uniquement
+        // Dropdown
+        const allMenus = document.querySelectorAll('.dropdown-menu');
         document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
             const menu = dropdown.querySelector('.dropdown-menu');
             const trigger = dropdown.querySelector('.nav-link');
-
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = menu.classList.contains('open');
@@ -378,11 +370,18 @@
                 if (!isOpen) menu.classList.add('open');
             });
         });
-
-        // Fermer en cliquant ailleurs
         document.addEventListener('click', () => {
             allMenus.forEach(m => m.classList.remove('open'));
         });
+
+        // Menu burger mobile
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>
