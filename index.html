@@ -1290,6 +1290,22 @@
                 }, 300);
             });
         });
+    
+        // Dropdown
+        const allMenus = document.querySelectorAll('.dropdown-menu');
+        document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const trigger = dropdown.querySelector('.nav-link');
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('open');
+                allMenus.forEach(m => m.classList.remove('open'));
+                if (!isOpen) menu.classList.add('open');
+            });
+        });
+        document.addEventListener('click', () => {
+            allMenus.forEach(m => m.classList.remove('open'));
+        });
     </script>
 </body>
 </html>

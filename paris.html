@@ -81,7 +81,41 @@
             .hero-title { font-size: 2.5rem; }
             .form-container { padding: 30px 20px; }
         }
-    </style>
+
+        /* DROPDOWN */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown .nav-link { cursor: pointer; }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: rgba(10, 10, 20, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 12px;
+            min-width: 200px;
+            z-index: 99999;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .dropdown-menu.open { display: block; }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .dropdown-item:last-child { border-bottom: none; }
+        .dropdown-item:hover { background: rgba(231, 76, 60, 0.2); color: var(--primary); padding-left: 25px; }
+        .dropdown-item i { width: 20px; text-align: center; color: var(--primary); }
+        @keyframes dropdownFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        </style>
 </head>
 <body>
     <div class="bg-animation"></div>
