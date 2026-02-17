@@ -99,7 +99,7 @@
         .nav-dropdown .nav-link { cursor: pointer; }
         
         .dropdown-menu {
-            display: none;
+            display: none !important;
             position: absolute;
             top: calc(100% + 10px);
             left: 0;
@@ -113,6 +113,10 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             animation: dropdownFade 0.2s ease;
         }
+        
+        .dropdown-menu.open {
+            display: block !important;
+        }
 
         @keyframes dropdownFade {
             from { opacity: 0; transform: translateY(-10px); }
@@ -120,11 +124,15 @@
         }
 
         .nav-dropdown .dropdown-menu.open { 
-            display: block;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 99999;
+            display: block !important;
+        }
+        
+        /* BLOQUER ouverture au chargement */
+        .nav-dropdown .dropdown-menu {
+            pointer-events: none;
+        }
+        .nav-dropdown .dropdown-menu.open {
+            pointer-events: auto;
         }
 
         .dropdown-item {

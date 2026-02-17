@@ -95,7 +95,7 @@
         .nav-dropdown { position: relative; }
         .nav-dropdown .nav-link { cursor: pointer; }
         .dropdown-menu {
-            display: none;
+            display: none !important;
             position: absolute;
             top: calc(100% + 10px);
             left: 0;
@@ -109,16 +109,24 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             animation: dropdownFade 0.2s ease;
         }
+        
+        .dropdown-menu.open {
+            display: block !important;
+        }
         @keyframes dropdownFade {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .nav-dropdown .dropdown-menu.open { 
-            display: block;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 99999;
+            display: block !important;
+        }
+        
+        /* BLOQUER ouverture au chargement */
+        .nav-dropdown .dropdown-menu {
+            pointer-events: none;
+        }
+        .nav-dropdown .dropdown-menu.open {
+            pointer-events: auto;
         }
         .dropdown-item {
             display: flex;
@@ -715,32 +723,30 @@
             });
         }
     
-        // Dropdown menu
+        // Bloquer TOUS les dropdowns pendant 1 seconde au chargement
+        const allMenus = document.querySelectorAll('.dropdown-menu');
+        allMenus.forEach(m => { m.style.display = 'none'; m.style.visibility = 'hidden'; });
+        
+        setTimeout(() => {
+            allMenus.forEach(m => { m.style.display = ''; m.style.visibility = ''; });
+        }, 1000);
+
+        // Dropdown - CLICK uniquement
         document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
-            let timer;
             const menu = dropdown.querySelector('.dropdown-menu');
+            const trigger = dropdown.querySelector('.nav-link');
 
-            dropdown.addEventListener('mouseenter', () => {
-                clearTimeout(timer);
-                // Fermer TOUS les autres
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
-                menu.classList.add('open');
-            });
-
-            dropdown.addEventListener('mouseleave', () => {
-                timer = setTimeout(() => menu.classList.remove('open'), 400);
-            });
-
-            menu.addEventListener('mouseenter', () => clearTimeout(timer));
-            menu.addEventListener('mouseleave', () => {
-                timer = setTimeout(() => menu.classList.remove('open'), 400);
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('open');
+                allMenus.forEach(m => m.classList.remove('open'));
+                if (!isOpen) menu.classList.add('open');
             });
         });
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-dropdown')) {
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
-            }
+        // Fermer en cliquant ailleurs
+        document.addEventListener('click', () => {
+            allMenus.forEach(m => m.classList.remove('open'));
         });
     </script>
 </body>
