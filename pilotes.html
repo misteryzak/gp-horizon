@@ -19,7 +19,7 @@
         
         /* Navigation */
         .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 20, 0.95); backdrop-filter: blur(10px); z-index: 9999; border-bottom: 2px solid rgba(231, 76, 60, 0.3); }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 10px 15px 10px; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: center; gap: 40px; align-items: center; padding: 15px 10px 15px 10px; }
         .nav-logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; cursor: pointer; }
         .nav-menu { display: flex; gap: 5px; list-style: none; }
         .nav-link { display: flex; align-items: center; gap: 8px; padding: 12px 20px; color: var(--light); text-decoration: none; font-weight: 600; transition: all 0.3s ease; border-radius: 8px; }
@@ -41,10 +41,10 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 60px 20px; }
         
         /* Cards Grid */
-        .pilots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; max-width: 100%; }
+        .pilots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         
         /* CARD 3D FLIP */
-        .pilot-card-container { perspective: 1000px; height: 480px; }
+        .pilot-card-container { perspective: 1000px; height: 520px; }
         
         .pilot-card { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer; }
         
@@ -63,9 +63,9 @@
         
         .card-front .card-number { position: absolute; top: 20px; right: 20px; font-size: 5rem; font-weight: 900; color: rgba(255,255,255,0.3); text-shadow: 0 0 20px rgba(255,255,255,0.5); z-index: 2; }
         
-        .card-front .card-content { padding: 30px; position: relative; }
+        .card-front .card-content { padding: 15px 20px; position: relative; }
         
-        .card-front .pilot-name { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
+        .card-front .pilot-name { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
         
         .card-front .team-name { font-size: 1.1rem; opacity: 0.8; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         
