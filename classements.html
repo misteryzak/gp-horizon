@@ -399,10 +399,13 @@
         }
 
         // Charger toutes les données au chargement de la page
-        window.addEventListener('load', () => {
-            loadPilotes();
-            loadEcuries();
-            loadParieurs();
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attendre que tout soit bien chargé
+            setTimeout(() => {
+                loadPilotes();
+                loadEcuries();
+                loadParieurs();
+            }, 100);
         });
 
         // ============================================
