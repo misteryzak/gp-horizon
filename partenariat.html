@@ -827,44 +827,31 @@
             });
         }
     
-        // Dropdown - ferme les autres quand on en ouvre un
-        const dropdowns = document.querySelectorAll('.nav-dropdown');
-        dropdowns.forEach(dropdown => {
-            let closeTimer;
+        // Dropdown menu
+        document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+            let timer;
             const menu = dropdown.querySelector('.dropdown-menu');
 
             dropdown.addEventListener('mouseenter', () => {
-                // Fermer tous les autres dropdowns
-                dropdowns.forEach(other => {
-                    if (other !== dropdown) {
-                        other.querySelector('.dropdown-menu').classList.remove('open');
-                    }
-                });
-                clearTimeout(closeTimer);
+                clearTimeout(timer);
+                // Fermer TOUS les autres
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
                 menu.classList.add('open');
             });
 
             dropdown.addEventListener('mouseleave', () => {
-                closeTimer = setTimeout(() => {
-                    menu.classList.remove('open');
-                }, 300);
+                timer = setTimeout(() => menu.classList.remove('open'), 400);
             });
 
-            menu.addEventListener('mouseenter', () => {
-                clearTimeout(closeTimer);
-            });
-
+            menu.addEventListener('mouseenter', () => clearTimeout(timer));
             menu.addEventListener('mouseleave', () => {
-                closeTimer = setTimeout(() => {
-                    menu.classList.remove('open');
-                }, 300);
+                timer = setTimeout(() => menu.classList.remove('open'), 400);
             });
         });
 
-        // Fermer dropdown en cliquant ailleurs
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.nav-dropdown')) {
-                dropdowns.forEach(d => d.querySelector('.dropdown-menu').classList.remove('open'));
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
             }
         });
     </script>
