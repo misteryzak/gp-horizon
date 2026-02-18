@@ -249,6 +249,35 @@
             }
         }
         
+        function formatHeure(heureStr) {
+            // Si vide
+            if (!heureStr) return '20:00';
+            
+            // Si déjà au bon format HH:MM
+            if (typeof heureStr === 'string' && heureStr.match(/^\d{2}:\d{2}$/)) {
+                return heureStr;
+            }
+            
+            // Si c'est HH:MM:SS, enlever les secondes
+            if (typeof heureStr === 'string' && heureStr.match(/^\d{2}:\d{2}:\d{2}$/)) {
+                return heureStr.substring(0, 5);
+            }
+            
+            // Si c'est un timestamp
+            if (typeof heureStr === 'string' && heureStr.includes('T')) {
+                try {
+                    const date = new Date(heureStr);
+                    const hours = String(date.getHours()).padStart(2, '0');
+                    const minutes = String(date.getMinutes()).padStart(2, '0');
+                    return `${hours}:${minutes}`;
+                } catch (e) {
+                    return '20:00';
+                }
+            }
+            
+            return '20:00';
+        }
+        
         async function loadCalendrier() {
             try {
                 const response = await fetch(`${SCRIPT_URL}?sheet=Calendrier`);
@@ -264,13 +293,14 @@
                 const racesHTML = data.map(race => {
                     const statutColor = race.Statut === 'Terminée' ? '#27AE60' : race.Statut === 'En cours' ? 'var(--primary)' : 'var(--accent)';
                     const dateFormatted = formatDate(race.Date);
+                    const heureFormatted = formatHeure(race.Heure);
                     
                     return `
                         <div class="race-card">
                             <div class="race-number">${race.Manche || 'MANCHE'}</div>
                             <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> ${race.Circuit || 'Circuit TBD'}</div>
                             <div class="race-date"><i class="fas fa-calendar"></i> ${dateFormatted}</div>
-                            <div class="race-date" style="margin-top: 5px;"><i class="fas fa-clock"></i> ${race.Heure || '20:00'}</div>
+                            <div class="race-date" style="margin-top: 5px;"><i class="fas fa-clock"></i> ${heureFormatted}</div>
                             <div class="race-info">
                                 <div class="race-info-row">
                                     <span><i class="fas fa-trophy"></i> Statut</span>
