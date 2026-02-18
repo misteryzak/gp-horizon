@@ -216,12 +216,26 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
         
         function formatDate(dateStr) {
-            // Si c'est déjà au bon format (DD/MM/YYYY), on retourne tel quel
-            if (dateStr && dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+            // Si c'est vide
+            if (!dateStr) return 'Date à confirmer';
+            
+            // Si c'est déjà au bon format (DD/MM/YYYY)
+            if (typeof dateStr === 'string' && dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
                 return dateStr;
             }
             
-            // Sinon on essaye de parser et reformater
+            // Si c'est un nombre (timestamp Excel)
+            if (typeof dateStr === 'number') {
+                // Convertir timestamp Excel en date JS
+                const excelEpoch = new Date(1899, 11, 30);
+                const date = new Date(excelEpoch.getTime() + dateStr * 86400000);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+            
+            // Sinon essayer de parser la date
             try {
                 const date = new Date(dateStr);
                 if (isNaN(date.getTime())) return 'Date à confirmer';
