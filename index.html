@@ -733,7 +733,9 @@
             <div class="announcement-card">
                 <div class="announcement-icon"><i class="fas fa-trophy"></i></div>
                 <h3 class="announcement-title">Classement</h3>
-                <p class="announcement-text">Leader actuel : <strong>PiloteX</strong> avec 43 points<br>Écurie en tête : <strong>Red Bull Racing</strong></p>
+                <p class="announcement-text" id="classementInfo">
+                    <i class="fas fa-spinner fa-spin"></i> Chargement...
+                </p>
             </div>
         </div>
     </section>
@@ -1306,6 +1308,48 @@
         document.addEventListener('click', () => {
             allMenus.forEach(m => m.classList.remove('open'));
         });
+
+        // Charger les classements automatiquement
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        
+        async function loadClassements() {
+            try {
+                // Charger les pilotes
+                const pilotesResponse = await fetch(`${SCRIPT_URL}?sheet=Pilotes`);
+                const pilotesData = await pilotesResponse.json();
+                
+                // Charger les écuries
+                const ecuriesResponse = await fetch(`${SCRIPT_URL}?sheet=Ecuries`);
+                const ecuriesData = await ecuriesResponse.json();
+                
+                let html = '';
+                
+                if (pilotesData && pilotesData.length > 0) {
+                    const leader = pilotesData[0];
+                    html += `Leader actuel : <strong>${leader['Nom Pilote']}</strong> avec ${leader.Points} points`;
+                } else {
+                    html += 'Aucun pilote classé pour le moment';
+                }
+                
+                html += '<br>';
+                
+                if (ecuriesData && ecuriesData.length > 0) {
+                    const ecurieLeader = ecuriesData[0];
+                    html += `Écurie en tête : <strong>${ecurieLeader['Nom Écurie'] || ecurieLeader['Nom Ecurie']}</strong>`;
+                } else {
+                    html += 'Aucune écurie classée pour le moment';
+                }
+                
+                document.getElementById('classementInfo').innerHTML = html;
+                
+            } catch (error) {
+                console.error('Erreur chargement classements:', error);
+                document.getElementById('classementInfo').innerHTML = 'Le championnat n\'a pas encore commencé';
+            }
+        }
+        
+        // Charger au démarrage
+        window.addEventListener('load', loadClassements);
     </script>
 </body>
 </html>

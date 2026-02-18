@@ -153,91 +153,12 @@
             <p>Chaque manche comprend une session de <strong>qualifications (1h à 21h00)</strong> suivie de la <strong>course principale (1h-1h30)</strong>. Soyez connecté 15 minutes avant pour les vérifications.</p>
         </div>
 
-        <div class="race-grid">
-            <!-- Manche 1 -->
-            <div class="race-card">
-                <div class="race-number">MANCHE 1</div>
-                <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> Circuit TBD</div>
-                <div class="race-date"><i class="fas fa-calendar"></i> Date à confirmer</div>
-                <div class="race-info">
-                    <div class="race-info-row">
-                        <span><i class="fas fa-clock"></i> Qualifications</span>
-                        <span><strong>21h00 - 22h00</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-flag-checkered"></i> Course</span>
-                        <span><strong>22h00 - 23h30</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-trophy"></i> Statut</span>
-                        <span><strong style="color: var(--accent);">À venir</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manche 2 -->
-            <div class="race-card">
-                <div class="race-number">MANCHE 2</div>
-                <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> Circuit TBD</div>
-                <div class="race-date"><i class="fas fa-calendar"></i> Date à confirmer</div>
-                <div class="race-info">
-                    <div class="race-info-row">
-                        <span><i class="fas fa-clock"></i> Qualifications</span>
-                        <span><strong>21h00 - 22h00</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-flag-checkered"></i> Course</span>
-                        <span><strong>22h00 - 23h30</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-trophy"></i> Statut</span>
-                        <span><strong style="color: var(--accent);">À venir</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manche 3 -->
-            <div class="race-card">
-                <div class="race-number">MANCHE 3</div>
-                <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> Circuit TBD</div>
-                <div class="race-date"><i class="fas fa-calendar"></i> Date à confirmer</div>
-                <div class="race-info">
-                    <div class="race-info-row">
-                        <span><i class="fas fa-clock"></i> Qualifications</span>
-                        <span><strong>21h00 - 22h00</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-flag-checkered"></i> Course</span>
-                        <span><strong>22h00 - 23h30</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-trophy"></i> Statut</span>
-                        <span><strong style="color: var(--accent);">À venir</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manche 4 -->
-            <div class="race-card">
-                <div class="race-number">MANCHE 4</div>
-                <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> Circuit TBD</div>
-                <div class="race-date"><i class="fas fa-calendar"></i> Date à confirmer</div>
-                <div class="race-info">
-                    <div class="race-info-row">
-                        <span><i class="fas fa-clock"></i> Qualifications</span>
-                        <span><strong>21h00 - 22h00</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-flag-checkered"></i> Course</span>
-                        <span><strong>22h00 - 23h30</strong></span>
-                    </div>
-                    <div class="race-info-row">
-                        <span><i class="fas fa-trophy"></i> Statut</span>
-                        <span><strong style="color: var(--accent);">À venir</strong></span>
-                    </div>
-                </div>
-            </div>
+        <div id="loadingRaces" style="text-align: center; padding: 100px 20px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary);"></i>
+            <p style="margin-top: 20px; font-size: 1.2rem;">Chargement du calendrier...</p>
         </div>
+        
+        <div class="race-grid" id="raceGrid"></div>
 
         <div class="info-box" style="margin-top: 60px;">
             <h3 style="margin-bottom: 15px; color: var(--secondary);"><i class="fas fa-bell"></i> Notifications</h3>
@@ -290,6 +211,55 @@
         document.addEventListener('click', () => {
             allMenus.forEach(m => m.classList.remove('open'));
         });
+
+        // Charger le calendrier
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        
+        async function loadCalendrier() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?sheet=Calendrier`);
+                const data = await response.json();
+                
+                document.getElementById('loadingRaces').style.display = 'none';
+                
+                if (!data || data.length === 0) {
+                    document.getElementById('raceGrid').innerHTML = '<p style="text-align: center; opacity: 0.6; padding: 100px 20px;">Aucune manche programmée pour le moment.</p>';
+                    return;
+                }
+                
+                const racesHTML = data.map(race => {
+                    const statutColor = race.Statut === 'Terminée' ? '#27AE60' : race.Statut === 'En cours' ? 'var(--primary)' : 'var(--accent)';
+                    
+                    return `
+                        <div class="race-card">
+                            <div class="race-number">${race.Manche || 'MANCHE'}</div>
+                            <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> ${race.Circuit || 'Circuit TBD'}</div>
+                            <div class="race-date"><i class="fas fa-calendar"></i> ${race.Date || 'Date à confirmer'} • ${race.Heure || '20:00'}</div>
+                            <div class="race-info">
+                                <div class="race-info-row">
+                                    <span><i class="fas fa-trophy"></i> Statut</span>
+                                    <span><strong style="color: ${statutColor};">${race.Statut || 'À venir'}</strong></span>
+                                </div>
+                                ${race.Vainqueur ? `
+                                    <div class="race-info-row">
+                                        <span><i class="fas fa-crown"></i> Vainqueur</span>
+                                        <span><strong style="color: #F39C12;">${race.Vainqueur}</strong></span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                document.getElementById('raceGrid').innerHTML = racesHTML;
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('loadingRaces').innerHTML = '<p style="color: var(--primary);">Erreur de chargement. Réessaye plus tard.</p>';
+            }
+        }
+        
+        window.addEventListener('load', loadCalendrier);
     </script>
 </body>
 </html>
