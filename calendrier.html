@@ -213,7 +213,27 @@
         });
 
         // Charger le calendrier
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJV8xHcExoZrOPbz97Tr5CfW/exec';
+        
+        function formatDate(dateStr) {
+            // Si c'est déjà au bon format (DD/MM/YYYY), on retourne tel quel
+            if (dateStr && dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+                return dateStr;
+            }
+            
+            // Sinon on essaye de parser et reformater
+            try {
+                const date = new Date(dateStr);
+                if (isNaN(date.getTime())) return 'Date à confirmer';
+                
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            } catch (e) {
+                return 'Date à confirmer';
+            }
+        }
         
         async function loadCalendrier() {
             try {
@@ -229,12 +249,14 @@
                 
                 const racesHTML = data.map(race => {
                     const statutColor = race.Statut === 'Terminée' ? '#27AE60' : race.Statut === 'En cours' ? 'var(--primary)' : 'var(--accent)';
+                    const dateFormatted = formatDate(race.Date);
                     
                     return `
                         <div class="race-card">
                             <div class="race-number">${race.Manche || 'MANCHE'}</div>
                             <div class="race-circuit"><i class="fas fa-map-marker-alt"></i> ${race.Circuit || 'Circuit TBD'}</div>
-                            <div class="race-date"><i class="fas fa-calendar"></i> ${race.Date || 'Date à confirmer'} • ${race.Heure || '20:00'}</div>
+                            <div class="race-date"><i class="fas fa-calendar"></i> ${dateFormatted}</div>
+                            <div class="race-date" style="margin-top: 5px;"><i class="fas fa-clock"></i> ${race.Heure || '20:00'}</div>
                             <div class="race-info">
                                 <div class="race-info-row">
                                     <span><i class="fas fa-trophy"></i> Statut</span>
