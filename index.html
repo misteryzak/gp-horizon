@@ -721,7 +721,9 @@
             <div class="announcement-card">
                 <div class="announcement-icon"><i class="fas fa-flag-checkered"></i></div>
                 <h3 class="announcement-title">Prochaine Course</h3>
-                <p class="announcement-text"><strong>Manche 2</strong> - Samedi 22 Février 2026<br>Qualifications : 21h00<br>Course : 21h30</p>
+                <p class="announcement-text" id="prochaineCourseInfo">
+                    <i class="fas fa-spinner fa-spin"></i> Chargement...
+                </p>
             </div>
 
             <div class="announcement-card">
@@ -1349,7 +1351,34 @@
         }
         
         // Charger au démarrage
-        window.addEventListener('load', loadClassements);
+        window.addEventListener('load', () => {
+            loadClassements();
+            loadProchaineCourse();
+        });
+        
+        // Charger la prochaine course
+        async function loadProchaineCourse() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?sheet=Calendrier`);
+                const data = await response.json();
+                
+                // Trouver la prochaine course (statut "À venir")
+                const prochaineCourse = data.find(course => course.Statut === 'À venir');
+                
+                if (prochaineCourse) {
+                    const html = `<strong>${prochaineCourse.Manche}</strong> - ${prochaineCourse.Date}<br>
+                                  📍 ${prochaineCourse.Circuit}<br>
+                                  🕐 ${prochaineCourse.Heure}`;
+                    document.getElementById('prochaineCourseInfo').innerHTML = html;
+                } else {
+                    document.getElementById('prochaineCourseInfo').innerHTML = 'Aucune course programmée pour le moment';
+                }
+                
+            } catch (error) {
+                console.error('Erreur chargement prochaine course:', error);
+                document.getElementById('prochaineCourseInfo').innerHTML = 'Informations indisponibles';
+            }
+        }
     </script>
 </body>
 </html>
