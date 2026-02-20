@@ -216,14 +216,8 @@
 
                 <div class="form-group">
                     <label class="form-label">Numéro de Téléphone (RP) <span class="required">*</span></label>
-                    <input type="text" class="form-input" name="telephone_rp" id="telephoneRP" required placeholder="Ex: 555-123-456" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
-                    <small style="opacity: 0.7;">Format: 555-123-456</small>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Ton Capital In-Game (argent GTA RP) <span class="required">*</span></label>
-                    <input type="number" class="form-input" name="capital_actuel" id="capitalActuel" required placeholder="500000" value="100000" min="0">
-                    <small style="opacity: 0.7;">L'argent que tu as actuellement dans GTA RP</small>
+                    <input type="text" class="form-input" name="telephone_rp" id="telephoneRP" required placeholder="Ex: 555-123-456 ou 555123456">
+                    <small style="opacity: 0.7;">Format libre (avec ou sans tirets)</small>
                 </div>
 
                 <div class="form-group">
@@ -290,10 +284,6 @@
                     <div class="gain-line">
                         <span>Gains potentiels si tout gagne :</span>
                         <span id="gainsPotentiels" style="color: #27AE60; font-weight: 700;">0 $</span>
-                    </div>
-                    <div class="gain-line">
-                        <span>Capital in-game restant après paris :</span>
-                        <span id="capitalRestant" style="font-weight: 700;">100000 $</span>
                     </div>
                 </div>
 
@@ -476,11 +466,8 @@
                 gainsPotentiels += miseEcurie * (cotesEcuries[ecurie] || 1);
             }
             
-            const capitalRestant = capital - totalMise;
-            
             document.getElementById('totalMise').textContent = `${totalMise.toLocaleString()} $`;
             document.getElementById('gainsPotentiels').textContent = `${gainsPotentiels.toLocaleString()} $`;
-            document.getElementById('capitalRestant').textContent = `${capitalRestant.toLocaleString()} $`;
             
             // Afficher/masquer le calculator
             if (totalMise > 0) {
@@ -537,13 +524,11 @@
         document.getElementById('misePiloteGagnant').addEventListener('input', calculerGains);
         document.getElementById('misePilotePodium').addEventListener('input', calculerGains);
         document.getElementById('miseEcurie').addEventListener('input', calculerGains);
-        document.getElementById('capitalActuel').addEventListener('input', calculerGains);
         
         // Soumission formulaire
         document.getElementById('parisForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const capital = parseFloat(document.getElementById('capitalActuel').value) || 100000;
             const totalMise = (parseFloat(document.getElementById('misePiloteGagnant').value) || 0) + 
                              (parseFloat(document.getElementById('misePilotePodium').value) || 0) + 
                              (parseFloat(document.getElementById('miseEcurie').value) || 0);
@@ -581,7 +566,6 @@
                 nom_prenom_rp: data.nom_prenom_rp,
                 telephone_rp: data.telephone_rp,
                 manche: data.manche,
-                capital_actuel: capital,
                 pilote_gagnant: piloteGagnant || '',
                 mise_pilote_gagnant: misePiloteGagnant,
                 cote_pilote_gagnant: piloteGagnant ? cotesPilotes[piloteGagnant].victoire : 0,
