@@ -184,7 +184,7 @@
                 <li style="padding: 8px 0;"><i class="fas fa-wallet" style="color: #27AE60; margin-right: 10px;"></i> <strong>Argent In-Game :</strong> Tu paris avec ton argent GTA RP</li>
                 <li style="padding: 8px 0;"><i class="fas fa-chart-line" style="color: #F1C40F; margin-right: 10px;"></i> <strong>Gains :</strong> Mise × Cote du pari (en argent GTA RP)</li>
                 <li style="padding: 8px 0;"><i class="fas fa-exclamation-triangle" style="color: #E74C3C; margin-right: 10px;"></i> <strong>Pertes :</strong> Si tu perds, tu perds ton argent in-game</li>
-                <li style="padding: 8px 0;"><i class="fas fa-ban" style="color: #C0392B; margin-right: 10px;"></i> <strong>Limite :</strong> Maximum 50% de ton capital in-game par course</li>
+                <li style="padding: 8px 0;"><i class="fas fa-ban" style="color: #C0392B; margin-right: 10px;"></i> <strong>Limite :</strong> Maximum 50 000$ par course</li>
             </ul>
         </div>
 
@@ -206,6 +206,18 @@
                 <div class="form-group">
                     <label class="form-label">Ton Pseudo Discord <span class="required">*</span></label>
                     <input type="text" class="form-input" name="pseudo_discord" id="pseudoDiscord" required placeholder="VotrePseudo#1234">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nom & Prénom (RP) <span class="required">*</span></label>
+                    <input type="text" class="form-input" name="nom_prenom_rp" id="nomPrenomRP" required placeholder="Ex: John Smith">
+                    <small style="opacity: 0.7;">Ton nom et prénom dans le jeu GTA RP</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Numéro de Téléphone (RP) <span class="required">*</span></label>
+                    <input type="text" class="form-input" name="telephone_rp" id="telephoneRP" required placeholder="Ex: 555-123-456" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
+                    <small style="opacity: 0.7;">Format: 555-123-456</small>
                 </div>
 
                 <div class="form-group">
@@ -287,7 +299,7 @@
 
                 <div class="danger-box" id="warningLimite" style="display: none; margin: 30px 0;">
                     <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fas fa-exclamation-triangle"></i> Attention !</h3>
-                    <p>Tu as dépassé la limite de 50% de ton capital in-game ! Réduis tes mises.</p>
+                    <p>Tu as dépassé la limite de 50 000$ par course ! Réduis tes mises.</p>
                 </div>
 
                 <div class="form-group">
@@ -477,8 +489,8 @@
                 document.getElementById('gainCalculator').style.display = 'none';
             }
             
-            // Vérifier la limite de 50%
-            if (totalMise > capital * 0.5) {
+            // Vérifier la limite de 50 000$
+            if (totalMise > 50000) {
                 document.getElementById('warningLimite').style.display = 'block';
             } else {
                 document.getElementById('warningLimite').style.display = 'none';
@@ -536,8 +548,9 @@
                              (parseFloat(document.getElementById('misePilotePodium').value) || 0) + 
                              (parseFloat(document.getElementById('miseEcurie').value) || 0);
             
-            if (totalMise > capital * 0.5) {
-                alert('⚠️ Tu as dépassé la limite de 50% de ton capital in-game !');
+            // Limite fixe de 50 000$ par course
+            if (totalMise > 50000) {
+                alert('⚠️ Tu as dépassé la limite de 50 000$ par course !');
                 return;
             }
             
@@ -562,48 +575,50 @@
             if (pilotePodium && misePilotePodium > 0) gainsPotentiels += misePilotePodium * cotesPilotes[pilotePodium].podium;
             if (ecurie && miseEcurie > 0) gainsPotentiels += miseEcurie * cotesEcuries[ecurie];
             
-            const embed = {
-                title: '🎰 NOUVEAU PARI - GP HORIZON',
-                color: 15158332,
-                fields: [
-                    { name: '👤 Parieur', value: data.pseudo_discord, inline: true },
-                    { name: '🏁 Manche', value: data.manche, inline: true },
-                    { name: '💰 Capital', value: `${parseInt(data.capital_actuel).toLocaleString()} $`, inline: true },
-                    { name: '\u200B', value: '\u200B' },
-                    { name: '🏎️ Pilote Gagnant', value: piloteGagnant || 'Aucun', inline: true },
-                    { name: '💵 Mise', value: misePiloteGagnant > 0 ? `${misePiloteGagnant.toLocaleString()} $` : '-', inline: true },
-                    { name: '📊 Cote', value: piloteGagnant ? `${cotesPilotes[piloteGagnant].victoire}x` : '-', inline: true },
-                    { name: '🥇 Pilote Podium', value: pilotePodium || 'Aucun', inline: true },
-                    { name: '💵 Mise', value: misePilotePodium > 0 ? `${misePilotePodium.toLocaleString()} $` : '-', inline: true },
-                    { name: '📊 Cote', value: pilotePodium ? `${cotesPilotes[pilotePodium].podium}x` : '-', inline: true },
-                    { name: '🏁 Écurie', value: ecurie || 'Aucune', inline: true },
-                    { name: '💵 Mise', value: miseEcurie > 0 ? `${miseEcurie.toLocaleString()} $` : '-', inline: true },
-                    { name: '📊 Cote', value: ecurie ? `${cotesEcuries[ecurie]}x` : '-', inline: true },
-                    { name: '\u200B', value: '\u200B' },
-                    { name: '💸 Total Misé', value: `${totalMise.toLocaleString()} $`, inline: true },
-                    { name: '💰 Gains Potentiels', value: `${gainsPotentiels.toLocaleString()} $`, inline: true },
-                    { name: '📈 Profit Max', value: `${(gainsPotentiels - totalMise).toLocaleString()} $`, inline: true }
-                ],
-                footer: { text: 'GP Horizon • Paris Sportifs' },
-                timestamp: new Date().toISOString()
+            // Préparer les données pour Apps Script
+            const pariData = {
+                pseudo_discord: data.pseudo_discord,
+                nom_prenom_rp: data.nom_prenom_rp,
+                telephone_rp: data.telephone_rp,
+                manche: data.manche,
+                capital_actuel: capital,
+                pilote_gagnant: piloteGagnant || '',
+                mise_pilote_gagnant: misePiloteGagnant,
+                cote_pilote_gagnant: piloteGagnant ? cotesPilotes[piloteGagnant].victoire : 0,
+                pilote_podium: pilotePodium || '',
+                mise_pilote_podium: misePilotePodium,
+                cote_pilote_podium: pilotePodium ? cotesPilotes[pilotePodium].podium : 0,
+                ecurie_gagnante: ecurie || '',
+                mise_ecurie: miseEcurie,
+                cote_ecurie: ecurie ? cotesEcuries[ecurie] : 0,
+                total_mise: totalMise,
+                gains_potentiels: gainsPotentiels,
+                commentaire: data.commentaire || ''
             };
             
-            if (data.commentaire) {
-                embed.fields.push({ name: '💭 Commentaire', value: data.commentaire });
-            }
-            
             try {
-                await fetch(WEBHOOK_URL, {
+                // Envoyer à Apps Script
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ embeds: [embed] })
+                    body: JSON.stringify(pariData)
                 });
                 
-                document.getElementById('successParis').style.display = 'block';
-                this.reset();
-                document.getElementById('gainCalculator').style.display = 'none';
-                setTimeout(() => document.getElementById('successParis').style.display = 'none', 5000);
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('successParis').style.display = 'block';
+                    this.reset();
+                    document.getElementById('gainCalculator').style.display = 'none';
+                    document.getElementById('groupMisePiloteGagnant').style.display = 'none';
+                    document.getElementById('groupMisePilotePodium').style.display = 'none';
+                    document.getElementById('groupMiseEcurie').style.display = 'none';
+                    setTimeout(() => document.getElementById('successParis').style.display = 'none', 5000);
+                } else {
+                    alert('❌ Erreur : ' + result.message);
+                }
             } catch (error) {
+                console.error('Erreur:', error);
                 alert('❌ Erreur lors de l\'envoi. Réessaye !');
             }
         });
