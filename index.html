@@ -886,13 +886,16 @@ background-image:
 
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo">GP HORIZON</a>
+        <div class="nav-container">
+            <div class="nav-logo" onclick="window.location.href='index.html'">GP HORIZON</div>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Accueil</a></li>
                 <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
-                <li class="nav-item nav-dropdown" id="insc-item">
-                    <button class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down"></i></button>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
                         <a href="ecuries.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
@@ -900,10 +903,10 @@ background-image:
                     </div>
                 </li>
                 <li class="nav-item nav-dropdown" id="ec-item">
-                    <button class="nav-link" id="ec-btn"><i class="fas fa-users"></i> Écuries <i class="fas fa-chevron-down"></i></button>
+                    <button class="nav-link" id="ec-btn" style="background:none;border:none;cursor:pointer;"><i class="fas fa-users"></i> Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
                 </li>
-                <li class="nav-item nav-dropdown" id="champ-item">
-                    <button class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down"></i></button>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
                         <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
@@ -911,9 +914,8 @@ background-image:
                     </div>
                 </li>
                 <li class="nav-item"><a href="paris.html" class="nav-link"><i class="fas fa-dice"></i> Paris</a></li>
-                <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link"><i class="fab fa-discord"></i> Discord</a></li>
+                <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link" style="color: #5865F2;"><i class="fab fa-discord"></i> Discord</a></li>
             </ul>
-            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
