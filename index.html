@@ -657,6 +657,35 @@
             to { transform: rotate(360deg); }
         }
     strong, b { font-weight: 700; }
+    
+/* MEGA MENU ÉCURIES */
+.mega-backdrop{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.8);}
+.mega-backdrop.show{display:block;}
+.mega-menu{display:none;position:fixed;top:70px;left:0;right:0;z-index:8500;background:#080810;border-bottom:1px solid rgba(255,255,255,0.05);box-shadow:0 20px 60px rgba(0,0,0,0.9);}
+.mega-menu.show{display:block;}
+.mega-wrap{max-width:1500px;margin:0 auto;padding:14px 20px 0;}
+.mega-grid-row{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:2px;}
+.mega-card{display:flex;flex-direction:column;text-decoration:none;overflow:hidden;background:#10101a;border:1px solid rgba(255,255,255,0.05);height:100px;transition:background 0.2s;}
+.mega-card:hover{background:#161624;}
+.mega-card-top{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#0a0a12;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.05);height:46px;}
+.mega-card-logo{width:30px;height:30px;border-radius:4px;overflow:hidden;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:900;}
+.mega-card-logo img{width:100%;height:100%;object-fit:cover;}
+.mega-card-name{flex:1;min-width:0;font-size:0.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mega-card-arr{font-size:0.7rem;color:rgba(255,255,255,0.2);transition:color 0.2s,transform 0.2s;}
+.mega-card:hover .mega-card-arr{color:var(--primary);transform:translateX(3px);}
+.mega-card-bot{flex:1;position:relative;overflow:hidden;background:#000;}
+.mega-card-bot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+.mega-card.plus{background:rgba(231,76,60,0.04);border:1px dashed rgba(231,76,60,0.2);}
+.mega-card.blank{background:rgba(255,255,255,0.005);border-color:transparent;pointer-events:none;}
+.mega-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 0 14px;border-top:1px solid rgba(255,255,255,0.05);margin-top:12px;}
+.mega-foot span{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+.mega-foot-links{display:flex;gap:4px;}
+.mega-foot-links a{display:flex;align-items:center;gap:6px;padding:6px 12px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.65rem;font-weight:600;text-transform:uppercase;border-radius:6px;transition:all 0.2s;border:1px solid transparent;}
+.mega-foot-links a:hover{color:#fff;background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);}
+.mega-foot-links a i{color:var(--primary);}
+@media(max-width:1024px){.mega-grid-row{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){.mega-grid-row{grid-template-columns:repeat(2,1fr);}.mega-foot{flex-direction:column;gap:10px;}.mega-foot span{text-align:center;}}
+
     </style>
 </head>
 <body>
@@ -702,6 +731,21 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Mega Menu Écuries -->
+    <div class="mega-backdrop" id="megaBackdrop"></div>
+    <div class="mega-menu" id="megaMenu">
+        <div class="mega-wrap">
+            <div id="megaGridWrap"></div>
+            <div class="mega-foot">
+                <span><i class="fas fa-users" style="margin-right:8px;color:var(--primary)"></i> Sélectionnez une écurie</span>
+                <div class="mega-foot-links">
+                    <a href="les_ecuries.html"><i class="fas fa-eye"></i> Voir toutes les écuries</a>
+                    <a href="ecurie.html"><i class="fas fa-plus"></i> Créer une écurie</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="accueil">
@@ -1357,6 +1401,144 @@
                 document.getElementById('prochaineCourseInfo').innerHTML = 'Informations indisponibles';
             }
         }
+    
+    // ===== MEGA MENU ÉCURIES =====
+    const MEGAMENU_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+    const MEGAMENU_COLORS = ['#E74C3C','#F39C12','#3498DB','#2ECC71','#9B59B6','#1ABC9C','#E67E22','#34495E','#E91E63','#00BCD4'];
+    const MEGAMENU_CAR_DEMO = 'https://i.imgur.com/JYKj2KS.png';
+    const MEGAMENU_DEMO = [
+        {'Nom Écurie':'Netflix','Couleur':'#E8001C'},
+        {'Nom Écurie':'Red Bull','Couleur':'#3671C6'},
+        {'Nom Écurie':'McLaren','Couleur':'#FF8000'},
+        {'Nom Écurie':'Mercedes','Couleur':'#00D2BE'},
+        {'Nom Écurie':'Alpine','Couleur':'#FF87BC'},
+        {'Nom Écurie':'Aston Martin','Couleur':'#006F62'},
+        {'Nom Écurie':'Williams','Couleur':'#005AFF'},
+    ];
+
+    function megaGetField(obj, keys, fallback = '') {
+        for (const k of keys) if (obj[k] != null && obj[k] !== '') return obj[k];
+        return fallback;
+    }
+
+    function megaSlug(s) {
+        return s.toLowerCase().replace(/[éèêë]/g,'e').replace(/[àâ]/g,'a').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    }
+
+    function renderMegaMenu(ecuries) {
+        const N = 5;
+        const all = [...ecuries, 'plus'];
+        const wrap = document.getElementById('megaGridWrap');
+        if (!wrap) return;
+        wrap.innerHTML = '';
+
+        for (let r = 0; r * N < all.length; r++) {
+            const row = document.createElement('div');
+            row.className = 'mega-grid-row';
+            for (let c = 0; c < N; c++) {
+                const i = r * N + c;
+                if (i >= all.length) {
+                    const blank = document.createElement('div');
+                    blank.className = 'mega-card blank';
+                    row.appendChild(blank);
+                } else if (all[i] === 'plus') {
+                    const a = document.createElement('a');
+                    a.href = 'ecurie.html';
+                    a.className = 'mega-card plus';
+                    a.onclick = () => closeMegaMenu();
+                    a.innerHTML = `<div class="mega-card-top"><div class="mega-card-logo" style="color:var(--primary)">+</div><span class="mega-card-name" style="color:var(--primary)">Créer</span></div><div class="mega-card-bot" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-plus-circle" style="font-size:1.5rem;opacity:0.1;color:var(--primary)"></i></div>`;
+                    row.appendChild(a);
+                } else {
+                    const e = all[i];
+                    const nom = megaGetField(e, ['Nom Écurie', 'Nom Ecurie', 'Nom', 'name']) || 'Écurie ' + (i + 1);
+                    const col = megaGetField(e, ['Couleur', 'Color']) || MEGAMENU_COLORS[i % MEGAMENU_COLORS.length];
+                    const logoUrl = megaGetField(e, ['Logo', 'Logo URL', 'photo_logo']);
+                    const carUrl = megaGetField(e, ['Photo Voiture', 'Voiture', 'Car URL', 'photo_voiture']) || MEGAMENU_CAR_DEMO;
+                    const init = nom[0].toUpperCase();
+
+                    const a = document.createElement('a');
+                    a.href = 'les_ecuries.html#' + megaSlug(nom);
+                    a.className = 'mega-card';
+                    a.onclick = () => closeMegaMenu();
+                    a.innerHTML = `<div class="mega-card-top"><div class="mega-card-logo">${logoUrl ? `<img src="${logoUrl}">` : `<span style="color:${col}">${init}</span>`}</div><span class="mega-card-name">${nom}</span><i class="fas fa-chevron-right mega-card-arr"></i></div><div class="mega-card-bot"><img src="${carUrl}"></div>`;
+                    row.appendChild(a);
+                }
+            }
+            wrap.appendChild(row);
+        }
+    }
+
+    async function loadMegaMenuEcuries() {
+        let ecuries = MEGAMENU_DEMO;
+        try {
+            const response = await fetch(MEGAMENU_SCRIPT_URL + '?sheet=Ecuries');
+            const data = await response.json();
+            if (Array.isArray(data) && data.length) ecuries = data;
+        } catch (e) {
+            console.log('Mega menu: using demo data');
+        }
+        renderMegaMenu(ecuries);
+    }
+
+    const megaMenu = document.getElementById('megaMenu');
+    const megaBackdrop = document.getElementById('megaBackdrop');
+    const ecBtn = document.getElementById('ec-btn');
+    const ecItem = document.getElementById('ec-item');
+
+    function openMegaMenu() {
+        if (megaMenu && megaBackdrop && ecItem) {
+            megaMenu.classList.add('show');
+            megaBackdrop.classList.add('show');
+            ecItem.classList.add('open');
+            // Fermer les autres dropdowns
+            document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+        }
+    }
+
+    function closeMegaMenu() {
+        if (megaMenu && megaBackdrop && ecItem) {
+            megaMenu.classList.remove('show');
+            megaBackdrop.classList.remove('show');
+            ecItem.classList.remove('open');
+        }
+    }
+
+    if (ecBtn) {
+        ecBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.innerWidth < 768) {
+                window.location.href = 'les_ecuries.html';
+                return;
+            }
+            if (megaMenu.classList.contains('show')) {
+                closeMegaMenu();
+            } else {
+                openMegaMenu();
+            }
+        });
+    }
+
+    if (megaBackdrop) {
+        megaBackdrop.addEventListener('click', closeMegaMenu);
+    }
+
+    document.addEventListener('click', (e) => {
+        if (megaMenu && !megaMenu.contains(e.target) && e.target !== ecBtn && !ecBtn.contains(e.target)) {
+            closeMegaMenu();
+        }
+    });
+
+    if (megaMenu) {
+        megaMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 768) closeMegaMenu();
+    });
+
+    // Charger les écuries au démarrage
+    loadMegaMenuEcuries();
+
     </script>
 </body>
 </html>
