@@ -467,6 +467,7 @@
                 grid-template-columns: 1fr;
             }
         }
+    strong, b { font-weight: 700; }
     </style>
 </head>
 <body>
@@ -487,8 +488,14 @@
                     <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
-                        <a href="ecuries.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
+                        <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
                         <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
+                    </div>
+                </li>
+                <li class="nav-item nav-dropdown" id="ec-item">
+                    <button class="nav-link" id="ec-btn" style="background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:12px 20px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
+                    <div class="dropdown-menu" id="ecuries-nav-menu">
+                        <a href="ecurie.html" class="dropdown-item"><i class="fas fa-plus"></i> Créer une écurie</a>
                     </div>
                 </li>
                 <li class="nav-item nav-dropdown">
@@ -757,7 +764,9 @@
         const allMenus = document.querySelectorAll('.dropdown-menu');
         document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
             const menu = dropdown.querySelector('.dropdown-menu');
-            const trigger = dropdown.querySelector('.nav-link');
+            if (!menu) return;
+            const trigger = dropdown.querySelector('.nav-link, button.nav-link');
+            if (!trigger) return;
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = menu.classList.contains('open');
@@ -768,6 +777,21 @@
         document.addEventListener('click', () => {
             allMenus.forEach(m => m.classList.remove('open'));
         });
+
+        // Charger les écuries dans la nav
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        const ecuriesNavMenu = document.getElementById('ecuries-nav-menu');
+        if (ecuriesNavMenu) {
+            fetch(`${SCRIPT_URL}?sheet=Ecuries_Nav`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        ecuriesNavMenu.innerHTML = data.map(e => `<a href="${e.URL || 'ecurie.html'}" class="dropdown-item"><i class="fas fa-shield-alt"></i> ${e.Nom || e.nom || 'Écurie'}</a>`).join('');
+                        ecuriesNavMenu.innerHTML += `<a href="ecurie.html" class="dropdown-item" style="border-top:1px solid rgba(255,255,255,0.08)"><i class="fas fa-plus"></i> Créer une écurie</a>`;
+                    }
+                })
+                .catch(() => {});
+        }
     </script>
 </body>
 </html>

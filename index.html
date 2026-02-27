@@ -656,6 +656,7 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+    strong, b { font-weight: 700; }
     </style>
 </head>
 <body>
@@ -681,9 +682,12 @@
                     <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
-                        <a href="ecuries.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
+                        <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
                         <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
                     </div>
+                </li>
+                <li class="nav-item nav-dropdown" id="ec-item">
+                    <button class="nav-link" id="ec-btn" style="background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:12px 20px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
                 </li>
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
@@ -960,7 +964,7 @@
                     <li><i class="fas fa-file-signature"></i> Déclaration au Directeur Sportif</li>
                 </ul>
                 <div style="text-align: center; margin-top: 25px;">
-                    <a href="ecuries.html" class="btn btn-primary">Créer mon Écurie</a>
+                    <a href="ecurie.html" class="btn btn-primary">Créer mon Écurie</a>
                 </div>
             </div>
 
