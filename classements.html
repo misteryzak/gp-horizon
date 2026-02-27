@@ -473,7 +473,8 @@
         const tabContents = document.querySelectorAll('.tab-content');
         
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const tabId = btn.dataset.tab;
                 
                 tabBtns.forEach(b => b.classList.remove('active'));
