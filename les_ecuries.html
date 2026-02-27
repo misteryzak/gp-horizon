@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--primary:#E74C3C;--accent:#F39C12;}
+:root{--primary:#E74C3C;--accent:#F39C12;--light:#f0f0f0;--dark:#0a0a14;--darker:#050508;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;color:#fff;min-height:100vh;
 background:#050508;
@@ -16,34 +16,34 @@ background-image:
   radial-gradient(ellipse at 80% 20%, rgba(0,100,255,0.05) 0%, transparent 60%);
 }
 
-/* NAVBAR */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(5,5,8,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);height:64px;}
-.nav-inner{max-width:1500px;margin:0 auto;height:64px;display:flex;align-items:center;padding:0 24px;gap:4px;}
-.nav-logo{font-size:1.3rem;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;margin-right:12px;}
-.nav-menu{display:flex;gap:2px;list-style:none;flex:1;}
-.nav-item{position:relative;}
-.nav-link{display:flex;align-items:center;gap:6px;padding:8px 12px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;border-radius:6px;transition:all 0.2s;border:1px solid transparent;cursor:pointer;background:none;white-space:nowrap;}
-.nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,0.04);}
-.nav-link.active{color:var(--primary);}
-.nav-link.discord{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.3);color:#fff;}
-.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;}
+/* Navigation Menu */
+.navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 20, 0.95); backdrop-filter: blur(10px); z-index: 9999; border-bottom: 2px solid rgba(231, 76, 60, 0.3); }
+.nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: center; gap: 40px; align-items: center; padding: 15px 10px 15px 10px; }
+.nav-logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; cursor: pointer; white-space: nowrap; }
+.nav-menu { display: flex; gap: 5px; list-style: none; }
+.nav-item { position: relative; }
+.nav-link { display: flex; align-items: center; gap: 5px; padding: 12px 20px; color: var(--light); text-decoration: none; font-weight: 600; transition: all 0.3s ease; border-radius: 8px; }
+.nav-link:hover { background: rgba(231, 76, 60, 0.2); color: var(--primary); }
+.nav-link.active { background: var(--primary); color: white; }
 
 /* DROPDOWN MENU */
-.nav-dropdown{position:relative;}
-.dropdown-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:rgba(5,5,10,0.98);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);border-top:2px solid var(--primary);min-width:180px;z-index:10002;box-shadow:0 16px 40px rgba(0,0,0,0.8);border-radius:0 0 8px 8px;}
-.dropdown-menu.open{display:block;}
-.dropdown-item{display:flex;align-items:center;gap:12px;padding:11px 16px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.73rem;font-weight:600;text-transform:uppercase;transition:all 0.15s;border-bottom:1px solid rgba(255,255,255,0.04);}
-.dropdown-item:last-child{border:none;}
-.dropdown-item:hover{color:#fff;background:rgba(231,76,60,0.1);padding-left:22px;}
-.dropdown-item i{color:var(--primary);width:14px;}
+.nav-dropdown { position: relative; }
+.nav-dropdown .nav-link { cursor: pointer; }
+.dropdown-menu { display: none !important; position: absolute; top: calc(100% + 10px); left: 0; background: rgba(10, 10, 20, 0.98); backdrop-filter: blur(10px); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; min-width: 200px; z-index: 99999; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); animation: dropdownFade 0.2s ease; }
+.dropdown-menu.open { display: block !important; pointer-events: auto; }
+@keyframes dropdownFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.nav-dropdown .dropdown-menu { pointer-events: none; }
+.dropdown-item { display: flex; align-items: center; gap: 12px; padding: 14px 20px; color: var(--light); text-decoration: none; font-weight: 600; transition: all 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.dropdown-item:last-child { border-bottom: none; }
+.dropdown-item:hover { background: rgba(231, 76, 60, 0.2); color: var(--primary); padding-left: 25px; }
+.dropdown-item i { width: 20px; text-align: center; color: var(--primary); }
 
-/* Mobile */
-@media(max-width:968px){
-  .nav-toggle{display:block;}
-  .nav-menu{position:fixed;left:-100%;top:64px;flex-direction:column;background:rgba(5,5,8,0.98);width:100%;padding:20px;transition:left 0.3s ease;border-top:2px solid var(--primary);}
-  .nav-menu.active{left:0;}
-  .dropdown-menu{position:static;border:none;background:rgba(255,255,255,0.02);margin-top:5px;box-shadow:none;}
-  .dropdown-menu.open{display:block;}
+/* Mobile Menu */
+.nav-toggle { display: none; background: none; border: none; color: var(--light); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 968px) {
+  .nav-menu { position: fixed; left: -100%; top: 70px; flex-direction: column; background: rgba(10, 10, 20, 0.98); width: 100%; padding: 20px; transition: left 0.3s ease; border-top: 2px solid var(--primary); }
+  .nav-menu.active { left: 0; }
+  .nav-toggle { display: block; }
 }
 
 .bd{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.8);}
@@ -298,37 +298,37 @@ background-image:
 <body>
 <div class="bd" id="bd"></div>
 <nav class="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">GP HORIZON</a>
-    <button class="nav-toggle" id="navToggle">
-      <i class="fas fa-bars"></i>
-    </button>
-    <ul class="nav-menu" id="navMenu">
-      <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
-      <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
-      <li class="nav-item nav-dropdown">
-        <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
-        <div class="dropdown-menu">
-          <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
-          <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
-          <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
+        <div class="nav-container">
+            <div class="nav-logo" onclick="window.location.href='index.html'">GP HORIZON</div>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+                <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
+                        <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
+                        <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
+                    </div>
+                </li>
+                <li class="nav-item nav-dropdown" id="ec-item">
+                    <button class="nav-link active" id="ec-btn" style="background:var(--primary);border:none;cursor:pointer;color:white;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
+                </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
+                        <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
+                        <a href="calendrier.html" class="dropdown-item"><i class="fas fa-calendar"></i> Calendrier</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="paris.html" class="nav-link"><i class="fas fa-dice"></i> Paris</a></li>
+                <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link" style="color: #5865F2;"><i class="fab fa-discord"></i> Discord</a></li>
+            </ul>
         </div>
-      </li>
-      <li class="nav-item nav-dropdown" id="ec-item">
-        <button class="nav-link active" id="ec-btn" style="background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:8px 12px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
-      </li>
-      <li class="nav-item nav-dropdown">
-        <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
-        <div class="dropdown-menu">
-          <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
-          <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
-          <a href="calendrier.html" class="dropdown-item"><i class="fas fa-calendar"></i> Calendrier</a>
-        </div>
-      </li>
-      <li class="nav-item"><a href="paris.html" class="nav-link"><i class="fas fa-dice"></i> Paris</a></li>
-      <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link discord"><i class="fab fa-discord"></i> Discord</a></li>
-    </ul>
-  </div>
 </nav>
 <div class="me" id="me">
   <div class="me-wrap">

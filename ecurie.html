@@ -514,7 +514,7 @@
                 <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
                 <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <a class="nav-link active"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
                         <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
@@ -791,7 +791,7 @@
                         document.getElementById('successEcurie').scrollIntoView({ behavior: 'smooth', block: 'center' });
                         
                         // Cacher le message après 10 secondes
-                        
+                        setTimeout(function() {
                             document.getElementById('successEcurie').classList.remove('show');
                         }, 10000);
                     } else {
