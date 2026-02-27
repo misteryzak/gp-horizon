@@ -161,7 +161,7 @@
                 <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
                 <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <a href="#" class="nav-link" onclick="return false;"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
                         <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
@@ -172,7 +172,7 @@
                     <button class="nav-link" id="ec-btn" style="background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:12px 20px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
                 </li>
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link active"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <a href="#" class="nav-link active" onclick="return false;"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
                         <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
@@ -495,7 +495,7 @@
         document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
             const menu = dropdown.querySelector('.dropdown-menu');
             const trigger = dropdown.querySelector('.nav-link');
-            if (!menu || !trigger) return; // skip ec-item (mega menu)
+            if (!menu || !trigger) return;
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = menu.classList.contains('open');
@@ -503,6 +503,11 @@
                 if (!isOpen) menu.classList.add('open');
             });
         });
+        document.addEventListener('click', () => {
+            allMenus.forEach(m => m.classList.remove('open'));
+        });
+
+                const allMenus = document.querySelectorAll('.dropdown-menu');
 
     
     // ===== MEGA MENU ÉCURIES =====
