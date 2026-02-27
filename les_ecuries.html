@@ -25,19 +25,30 @@ background-image:
 .nav-link{display:flex;align-items:center;gap:6px;padding:8px 12px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;border-radius:6px;transition:all 0.2s;border:1px solid transparent;cursor:pointer;background:none;white-space:nowrap;}
 .nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,0.04);}
 .nav-link.active{color:var(--primary);}
-.chev{font-size:0.5rem;opacity:0.5;transition:transform 0.25s;}
-.nav-item.open>.nav-link .chev{transform:rotate(180deg);}
 .nav-link.discord{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.3);color:#fff;}
-.dd{display:none;position:absolute;top:calc(100% + 6px);left:0;background:rgba(5,5,10,0.98);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);border-top:2px solid var(--primary);min-width:180px;z-index:8600;box-shadow:0 16px 40px rgba(0,0,0,0.8);}
-.dd.show{display:block;}
-.dd a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.73rem;font-weight:600;text-transform:uppercase;transition:all 0.15s;border-bottom:1px solid rgba(255,255,255,0.04);}
-.dd a:last-child{border:none;}
-.dd a:hover{color:#fff;background:rgba(231,76,60,0.1);padding-left:22px;}
-.dd a i{color:var(--primary);width:14px;}
+.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;}
+
+/* DROPDOWN MENU */
+.nav-dropdown{position:relative;}
+.dropdown-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:rgba(5,5,10,0.98);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);border-top:2px solid var(--primary);min-width:180px;z-index:10002;box-shadow:0 16px 40px rgba(0,0,0,0.8);border-radius:0 0 8px 8px;}
+.dropdown-menu.open{display:block;}
+.dropdown-item{display:flex;align-items:center;gap:12px;padding:11px 16px;color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.73rem;font-weight:600;text-transform:uppercase;transition:all 0.15s;border-bottom:1px solid rgba(255,255,255,0.04);}
+.dropdown-item:last-child{border:none;}
+.dropdown-item:hover{color:#fff;background:rgba(231,76,60,0.1);padding-left:22px;}
+.dropdown-item i{color:var(--primary);width:14px;}
+
+/* Mobile */
+@media(max-width:968px){
+  .nav-toggle{display:block;}
+  .nav-menu{position:fixed;left:-100%;top:64px;flex-direction:column;background:rgba(5,5,8,0.98);width:100%;padding:20px;transition:left 0.3s ease;border-top:2px solid var(--primary);}
+  .nav-menu.active{left:0;}
+  .dropdown-menu{position:static;border:none;background:rgba(255,255,255,0.02);margin-top:5px;box-shadow:none;}
+  .dropdown-menu.open{display:block;}
+}
 
 .bd{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.8);}
 .bd.show{display:block;}
-.me{display:none;position:fixed;top:64px;left:0;right:0;z-index:8500;background:#080810;border-bottom:1px solid rgba(255,255,255,0.05);box-shadow:0 20px 60px rgba(0,0,0,0.9);}
+.me{display:none;position:fixed;top:64px;left:0;right:0;z-index:10001;background:#080810;border-bottom:1px solid rgba(255,255,255,0.05);box-shadow:0 20px 60px rgba(0,0,0,0.9);}
 .me.show{display:block;}
 .me-wrap{max-width:1500px;margin:0 auto;padding:14px 20px 0;}
 .me-grid-row{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:2px;}
@@ -289,18 +300,32 @@ background-image:
 <nav class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">GP HORIZON</a>
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="les_ecuries.html" class="nav-link active"><i class="fas fa-car"></i> Les Écuries</a></li>
-      <li class="nav-item" id="insc-item">
-        <button class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down chev"></i></button>
-        <div class="dd" id="insc-dd"><a href="inscription.html"><i class="fas fa-id-card"></i> Pilote</a><a href="ecurie.html"><i class="fas fa-users"></i> Écurie</a><a href="partenariat.html"><i class="fas fa-handshake"></i> Partenariat</a></div>
+    <button class="nav-toggle" id="navToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+      <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
+      <li class="nav-item nav-dropdown">
+        <a class="nav-link"><i class="fas fa-user-plus"></i> Inscription <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+        <div class="dropdown-menu">
+          <a href="inscription.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilote</a>
+          <a href="ecurie.html" class="dropdown-item"><i class="fas fa-users"></i> Écurie</a>
+          <a href="partenariat.html" class="dropdown-item"><i class="fas fa-handshake"></i> Partenariat</a>
+        </div>
       </li>
-      <li class="nav-item" id="champ-item">
-        <button class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down chev"></i></button>
-        <div class="dd" id="champ-dd"><a href="pilotes.html"><i class="fas fa-id-card"></i> Pilotes</a><a href="classements.html"><i class="fas fa-trophy"></i> Classements</a><a href="calendrier.html"><i class="fas fa-calendar"></i> Calendrier</a></div>
+      <li class="nav-item nav-dropdown" id="ec-item">
+        <button class="nav-link active" id="ec-btn" style="background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:inherit;font-weight:600;display:flex;align-items:center;gap:8px;padding:8px 12px;"><i class="fas fa-users"></i> Les Écuries <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></button>
+      </li>
+      <li class="nav-item nav-dropdown">
+        <a class="nav-link"><i class="fas fa-flag-checkered"></i> Championnat <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+        <div class="dropdown-menu">
+          <a href="pilotes.html" class="dropdown-item"><i class="fas fa-id-card"></i> Pilotes</a>
+          <a href="classements.html" class="dropdown-item"><i class="fas fa-trophy"></i> Classements</a>
+          <a href="calendrier.html" class="dropdown-item"><i class="fas fa-calendar"></i> Calendrier</a>
+        </div>
       </li>
       <li class="nav-item"><a href="paris.html" class="nav-link"><i class="fas fa-dice"></i> Paris</a></li>
-      <li class="nav-item"><a href="reglement.html" class="nav-link"><i class="fas fa-book"></i> Règlement</a></li>
       <li class="nav-item"><a href="https://discord.gg/hNVZ2JYk3j" target="_blank" class="nav-link discord"><i class="fab fa-discord"></i> Discord</a></li>
     </ul>
   </div>
@@ -311,8 +336,8 @@ background-image:
     <div class="me-foot">
       <span><i class="fas fa-users" style="margin-right:8px;color:var(--primary)"></i> Sélectionnez une écurie</span>
       <div class="me-foot-links">
-        <a href="classements.html"><i class="fas fa-trophy"></i> Classement</a>
-        <a href="#creer"><i class="fas fa-plus"></i> Créer une écurie</a>
+        <a href="les_ecuries.html"><i class="fas fa-eye"></i> Voir toutes les écuries</a>
+        <a href="ecurie.html"><i class="fas fa-plus"></i> Créer une écurie</a>
       </div>
     </div>
   </div>
@@ -427,26 +452,50 @@ async function init(){
   renderMe(ec);
   const wrap=document.getElementById('wrap');wrap.innerHTML='';
   ec.forEach((e,i)=>wrap.appendChild(buildCard(e,i,pi)));
-  const cc=document.createElement('a');cc.href='#creer';cc.className='ecurie-card create-card';
+  const cc=document.createElement('a');cc.href='ecurie.html';cc.className='ecurie-card create-card';
   cc.innerHTML=`<div class="create-icon"><i class="fas fa-plus"></i></div><div class="create-label">Créer une écurie</div>`;
   wrap.appendChild(cc);
 }
 init();
 
+// Mobile menu toggle
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    const icon = navToggle.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
+  });
+}
+
+// Mega Menu
 const ME=document.getElementById('me'),BD=document.getElementById('bd'),ECB=document.getElementById('ec-btn'),ECI=document.getElementById('ec-item');
-function openMe(){ME.classList.add('show');BD.classList.add('show');ECI.classList.add('open');closeDDs();}
+function closeAllDropdowns(){document.querySelectorAll('.dropdown-menu.open').forEach(d=>d.classList.remove('open'));}
+function openMe(){ME.classList.add('show');BD.classList.add('show');ECI.classList.add('open');closeAllDropdowns();}
 function closeMe(){ME.classList.remove('show');BD.classList.remove('show');ECI.classList.remove('open');}
-ECB.addEventListener('click',e=>{e.stopPropagation();if(window.innerWidth<1024){window.scrollTo({top:0,behavior:'smooth'});return;}ME.classList.contains('show')?closeMe():openMe();});
+ECB.addEventListener('click',e=>{e.stopPropagation();if(window.innerWidth<768){window.location.href='les_ecuries.html';return;}ME.classList.contains('show')?closeMe():openMe();});
 BD.addEventListener('click',closeMe);
-document.addEventListener('click',e=>{if(!ME.contains(e.target)&&e.target!==ECB)closeMe();});
+document.addEventListener('click',e=>{if(!ME.contains(e.target)&&e.target!==ECB&&!ECB.contains(e.target))closeMe();});
 ME.addEventListener('click',e=>e.stopPropagation());
-window.addEventListener('resize',()=>{if(window.innerWidth<1024)closeMe();});
-function closeDDs(){document.querySelectorAll('.dd.show').forEach(d=>d.classList.remove('show'));}
-[['insc-item','insc-dd'],['champ-item','champ-dd']].forEach(([ii,di])=>{
-  const it=document.getElementById(ii),dd=document.getElementById(di);
-  it.querySelector('.nav-link').addEventListener('click',e=>{e.stopPropagation();const w=dd.classList.contains('show');closeDDs();closeMe();if(!w)dd.classList.add('show');});
+window.addEventListener('resize',()=>{if(window.innerWidth<768)closeMe();});
+
+// Dropdown menus
+document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+  const trigger = dropdown.querySelector('.nav-link');
+  const menu = dropdown.querySelector('.dropdown-menu');
+  if (trigger && menu) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menu.classList.contains('open');
+      closeAllDropdowns();
+      closeMe();
+      if (!isOpen) menu.classList.add('open');
+    });
+  }
 });
-document.addEventListener('click',closeDDs);
+document.addEventListener('click', closeAllDropdowns);
 </script>
 </body>
 </html>
