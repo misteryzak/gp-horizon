@@ -269,6 +269,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Compte Bancaire (RP) <span class="required">*</span></label>
+                    <input type="text" class="form-input" name="compte_bancaire" id="compteBancaire" required placeholder="Ex: Maze Bank — 0042-7834-21">
+                    <small style="opacity: 0.7;">Ton numéro de compte bancaire dans le jeu GTA RP</small>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Numéro de la Manche <span class="required">*</span></label>
                     <select class="form-select" name="manche" id="manche" required>
                         <option value="">Sélectionnez la manche</option>
@@ -613,6 +619,7 @@
                 pseudo_discord: data.pseudo_discord,
                 nom_prenom_rp: data.nom_prenom_rp,
                 telephone_rp: data.telephone_rp,
+                compte_bancaire: data.compte_bancaire,
                 manche: data.manche,
                 pilote_gagnant: piloteGagnant || '',
                 mise_pilote_gagnant: misePiloteGagnant,
