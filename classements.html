@@ -503,9 +503,7 @@
                 if (!isOpen) menu.classList.add('open');
             });
         });
-        document.addEventListener('click', () => {
-            allMenus.forEach(m => m.classList.remove('open'));
-        });
+
     
     // ===== MEGA MENU ÉCURIES =====
     const MEGAMENU_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
@@ -628,6 +626,10 @@
     }
 
     document.addEventListener('click', (e) => {
+        // Fermer les dropdowns nav
+        const allMenus = document.querySelectorAll('.dropdown-menu');
+        allMenus.forEach(m => m.classList.remove('open'));
+        // Fermer le mega menu
         if (megaMenu && !megaMenu.contains(e.target) && e.target !== ecBtn && !ecBtn.contains(e.target)) {
             closeMegaMenu();
         }
