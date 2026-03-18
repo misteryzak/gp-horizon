@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Événementiel — HMF Saison 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF4500;
+    --gold:   #FFD700;
+    --amber:  #FF8C00;
+    --dark:   #0A0A0A;
+    --dark2:  #141414;
+    --dark3:  #1C1C1C;
+    --dark4:  #262626;
+    --white:  #F2F2F2;
+    --gray:   #909090;
+    --gray2:  #606060;
+    --c-course:   #FF4500;
+    --c-rallye:   #FF8C00;
+    --c-moto:     #9C27B0;
+    --c-meet:     #2196F3;
+    --c-parade:   #4CAF50;
+    --c-challenge:#E53935;
+    --c-ceremonie:#FFD700;
+    --c-neutral:  #404040;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--dark); font-family:'Barlow',sans-serif; color:var(--white); }
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-track { background:var(--dark2); }
+  ::-webkit-scrollbar-thumb { background:var(--orange); border-radius:2px; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,10,10,0.97); backdrop-filter:blur(12px);
+    border-bottom:3px solid var(--orange);
+    padding:0 32px; height:76px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .nav-logo { display:flex; align-items:center; gap:14px; text-decoration:none; flex-shrink:0; }
+  .nav-badge {
+    width:50px; height:50px; border-radius:50%;
+    background:var(--orange); border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900; font-size:17px; letter-spacing:1px; color:white;
+    box-shadow:0 0 18px rgba(255,69,0,0.5); flex-shrink:0;
+  }
+  .nav-title {
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900; font-size:22px; letter-spacing:2px;
+    text-transform:uppercase; color:var(--white); line-height:1.1;
+  }
+  .nav-title small { display:block; font-size:11px; letter-spacing:3px; color:var(--orange); font-weight:700; }
+  .nav-links { display:flex; gap:2px; list-style:none; flex:1; justify-content:center; flex-wrap:wrap; }
+  .nav-links a {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--gray);
+    text-decoration:none; padding:8px 12px; border-radius:3px; transition:all 0.15s;
+  }
+  .nav-links a:hover { color:var(--orange); background:rgba(255,69,0,0.1); }
+  .nav-links a.active { color:var(--orange); background:rgba(255,69,0,0.08); }
+  .nav-back {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:13px; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--white);
+    text-decoration:none; display:flex; align-items:center; gap:7px;
+    padding:9px 16px; border:2px solid var(--orange);
+    transition:all 0.15s; flex-shrink:0; white-space:nowrap;
+  }
+  .nav-back:hover { background:var(--orange); color:white; }
+  .burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+  .burger span { width:22px; height:2px; background:var(--gray); border-radius:2px; }
+  .mobile-nav {
+    display:none; position:fixed; top:76px; left:0; right:0;
+    background:rgba(10,10,10,0.98); border-bottom:1px solid var(--dark4);
+    padding:12px 20px; flex-direction:column; gap:2px; z-index:99;
+  }
+  .mobile-nav.open { display:flex; }
+  .mobile-nav a {
+    font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase; color:var(--gray);
+    text-decoration:none; padding:10px 12px; border-radius:3px; transition:all 0.15s;
+  }
+  .mobile-nav a:hover { color:var(--orange); background:rgba(255,69,0,0.08); }
+
+  /* HERO */
+  .hero {
+    margin-top:76px;
+    background:linear-gradient(180deg,#060606 0%,var(--dark) 100%);
+    border-bottom:3px solid var(--orange);
+    padding:56px 24px 40px; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-100px; right:-150px;
+    width:600px; height:600px;
+    background:radial-gradient(ellipse,rgba(255,69,0,0.08) 0%,transparent 65%);
+    pointer-events:none;
+  }
+  .hero-inner {
+    max-width:1100px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:32px; flex-wrap:wrap; position:relative; z-index:1;
+  }
+  .hero-left { flex:1; min-width:280px; }
+  .hero-tag {
+    font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:900;
+    letter-spacing:5px; text-transform:uppercase; color:var(--orange);
+    margin-bottom:10px; display:flex; align-items:center; gap:8px;
+  }
+  .hero-tag::before { content:''; width:24px; height:2px; background:var(--orange); }
+  .hero h1 {
+    font-family:'Barlow Condensed',sans-serif; font-weight:900;
+    font-size:clamp(36px,6vw,64px); letter-spacing:3px; line-height:1;
+    text-transform:uppercase; margin-bottom:14px;
+    background:linear-gradient(90deg,#fff 30%,var(--amber) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hero-desc { font-size:15px; color:var(--gray); line-height:1.7; max-width:560px; font-style:italic; }
+  .hero-desc strong { color:var(--white); font-style:normal; }
+  .hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-stat {
+    background:var(--dark2); border:1px solid var(--dark4);
+    border-top:2px solid var(--orange); padding:14px 20px; text-align:center; min-width:90px;
+  }
+  .hero-stat .val { font-family:'Barlow Condensed',sans-serif; font-size:30px; font-weight:900; color:var(--orange); line-height:1; }
+  .hero-stat .lbl { font-size:9px; color:var(--gray2); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+
+  /* LEGENDE */
+  .legende-bar {
+    background:var(--dark2); border-bottom:1px solid var(--dark4);
+    padding:12px 32px;
+  }
+  .legende-inner {
+    max-width:1100px; margin:0 auto;
+    display:flex; flex-wrap:wrap; gap:8px 20px; align-items:center;
+  }
+  .leg-title { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--gray2); margin-right:4px; }
+  .leg-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--gray); font-weight:500; }
+  .leg-dot { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
+
+  /* FILTRES */
+  .filtres-bar {
+    background:var(--dark3); border-bottom:1px solid var(--dark4);
+    padding:14px 32px; position:sticky; top:76px; z-index:50;
+  }
+  .filtres-inner { max-width:1100px; margin:0 auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .filtre-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--gray2); margin-right:4px; }
+  .btn-filtre {
+    font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
+    letter-spacing:1.5px; text-transform:uppercase;
+    padding:6px 14px; border:1px solid var(--dark4); background:transparent;
+    color:var(--gray); cursor:pointer; border-radius:2px; transition:all 0.15s;
+  }
+  .btn-filtre:hover { border-color:var(--orange); color:var(--orange); }
+  .btn-filtre.active { background:var(--orange); border-color:var(--orange); color:white; }
+
+  /* MAIN */
+  .main { max-width:1100px; margin:0 auto; padding:40px 24px 80px; }
+
+  /* MOIS SECTION */
+  .mois-section { margin-bottom:52px; }
+  .mois-header {
+    display:flex; align-items:center; gap:16px; margin-bottom:20px;
+  }
+  .mois-badge {
+    font-family:'Barlow Condensed',sans-serif; font-weight:900;
+    font-size:32px; letter-spacing:4px; text-transform:uppercase; line-height:1;
+  }
+  .mois-line { flex:1; height:1px; background:linear-gradient(90deg,var(--orange),transparent); }
+  .mois-count { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray2); }
+
+  /* TABLE HEADER */
+  .table-header {
+    display:grid; grid-template-columns:70px 110px 1fr 1fr;
+    gap:8px; margin-bottom:8px;
+  }
+  .col-hdr {
+    background:var(--dark3); padding:7px 12px;
+    font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:800;
+    letter-spacing:2px; text-transform:uppercase; color:var(--orange); text-align:center;
+    border-top:2px solid var(--orange);
+  }
+
+  /* SEMAINE ROW */
+  .semaine-row {
+    display:grid; grid-template-columns:70px 110px 1fr 1fr;
+    gap:8px; margin-bottom:8px;
+    opacity:0; transform:translateY(10px); transition:all 0.35s ease;
+  }
+  .semaine-row.visible { opacity:1; transform:translateY(0); }
+  .semaine-row:nth-child(even) .cell-sem,
+  .semaine-row:nth-child(even) .cell-date { background:#121212; }
+  .semaine-row:nth-child(even) .event-card { background:#121212; }
+
+  .cell-sem {
+    background:var(--dark2); border:1px solid var(--dark4);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; padding:8px 4px;
+  }
+  .sem-num { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:22px; line-height:1; letter-spacing:1px; }
+  .sem-year { font-size:9px; color:var(--gray2); letter-spacing:1px; margin-top:2px; }
+
+  .cell-date {
+    background:var(--dark2); border:1px solid var(--dark4);
+    display:flex; align-items:center; justify-content:center;
+    padding:8px; font-size:12px; color:var(--gray); font-style:italic; text-align:center; line-height:1.4;
+  }
+
+  .event-card {
+    background:var(--dark2); border:1px solid var(--dark4);
+    border-left:4px solid var(--accent,#333);
+    padding:10px 14px; display:flex; flex-direction:column; gap:4px; min-height:80px;
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .event-card:hover { transform:translateX(3px); box-shadow:-3px 0 12px rgba(255,69,0,0.15); }
+
+  .event-card.empty {
+    border-left-color:#222; justify-content:center; align-items:center;
+  }
+  .event-card.empty span { font-size:11px; color:#2e2e2e; font-style:italic; letter-spacing:1px; }
+
+  .ev-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+  .ev-title {
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:15px;
+    line-height:1.2; text-transform:uppercase; letter-spacing:0.5px; color:var(--white); flex:1;
+  }
+  .ev-badge {
+    font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:800;
+    letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px;
+    border:1px solid var(--accent,#444); color:var(--accent,#888);
+    background:rgba(0,0,0,0.4); white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:1px;
+  }
+  .ev-desc { font-size:12px; color:var(--gray); line-height:1.5; font-style:italic; }
+
+  /* FOOTER */
+  .site-footer {
+    background:var(--dark2); border-top:3px solid var(--orange);
+    padding:28px 24px; text-align:center;
+  }
+  .footer-inner { max-width:1100px; margin:0 auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:900; letter-spacing:4px; color:var(--orange); margin-bottom:6px; }
+  .footer-sub { font-size:12px; color:var(--gray2); letter-spacing:1px; margin-bottom:12px; }
+  .footer-links { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+  .footer-link { color:var(--orange); text-decoration:none; font-size:13px; letter-spacing:1px; border-bottom:1px solid transparent; transition:border-color 0.15s; }
+  .footer-link:hover { border-bottom-color:var(--orange); }
+
+  .anchor { display:block; height:80px; margin-top:-80px; visibility:hidden; }
+
+  @media (max-width:900px) {
+    .nav-links { display:none; }
+    .nav-back { display:none; }
+    .burger { display:flex; }
+    .table-header, .semaine-row { grid-template-columns:60px 90px 1fr; }
+    .table-header .col-hdr:last-child, .semaine-row > .event-card:last-child { display:none; }
+  }
+  @media (max-width:600px) {
+    .table-header, .semaine-row { grid-template-columns:50px 1fr; }
+    .table-header .col-hdr:nth-child(2), .semaine-row .cell-date { display:none; }
+    .mois-badge { font-size:24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-badge">HMF</div>
+    <span class="nav-title"><small>Horizon Motorsport Fédération</small>Programme 2026</span>
+  </a>
+  <ul class="nav-links" id="navLinks"></ul>
+  <a class="nav-back" href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Horizon Motorsport Fédération · FlashBack FA</div>
+      <h1>Programme<br>Événementiel</h1>
+      <p class="hero-desc">
+        <strong>1 à 2 événements par semaine</strong> d'Avril à Novembre — courses, rallyes, motos, car meets, challenges, parades et bien plus. HMF couvre tout ce qui touche au véhicule sur FlashBack FA.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">40+</div><div class="lbl">Événements</div></div>
+      <div class="hero-stat"><div class="val">28+</div><div class="lbl">Semaines</div></div>
+      <div class="hero-stat"><div class="val">8</div><div class="lbl">Mois</div></div>
+      <div class="hero-stat"><div class="val">5</div><div class="lbl">Disciplines</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGENDE -->
+<div class="legende-bar">
+  <div class="legende-inner">
+    <span class="leg-title">Légende :</span>
+    <div class="leg-item"><div class="leg-dot" style="background:#FF4500"></div>Course / GP</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#FF8C00"></div>Rallye</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#9C27B0"></div>Moto</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#2196F3"></div>Car Meet</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#4CAF50"></div>Parade</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#E53935"></div>Challenge</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#FFD700"></div>Cérémonie</div>
+  </div>
+</div>
+
+<!-- FILTRES -->
+<div class="filtres-bar">
+  <div class="filtres-inner">
+    <span class="filtre-label">Mois :</span>
+    <button class="btn-filtre active" onclick="filterMonth('tous',this)">Tous</button>
+    <button class="btn-filtre" onclick="filterMonth('AVRIL',this)">Avril</button>
+    <button class="btn-filtre" onclick="filterMonth('MAI',this)">Mai</button>
+    <button class="btn-filtre" onclick="filterMonth('JUIN',this)">Juin</button>
+    <button class="btn-filtre" onclick="filterMonth('JUILLET',this)">Juillet</button>
+    <button class="btn-filtre" onclick="filterMonth('AOÛT',this)">Août</button>
+    <button class="btn-filtre" onclick="filterMonth('SEPTEMBRE',this)">Septembre</button>
+    <button class="btn-filtre" onclick="filterMonth('OCTOBRE',this)">Octobre</button>
+    <button class="btn-filtre" onclick="filterMonth('NOVEMBRE',this)">Novembre</button>
+  </div>
+</div>
+
+<main class="main" id="main"></main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">HORIZON MOTORSPORT FÉDÉRATION</div>
+    <div class="footer-sub">Président Fondateur : Zak Boulkif · FlashBack FA · Saison 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-epreuves.html">Guide des Épreuves</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-benevoles.html">Programme Bénévoles</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/index.html">GP Horizon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const TYPE_COLOR = {
+  "COURSE / GP":"#FF4500","RALLYE":"#FF8C00","MOTO":"#9C27B0",
+  "CAR MEET":"#2196F3","PARADE":"#4CAF50","CHALLENGE":"#E53935",
+  "CÉRÉMONIE":"#FFD700","—":"#333333"
+};
+const MOIS_COLOR = {
+  "AVRIL":"#FF4500","MAI":"#FF8C00","JUIN":"#4CAF50","JUILLET":"#E53935",
+  "AOÛT":"#9C27B0","SEPTEMBRE":"#2196F3","OCTOBRE":"#FF8C00","NOVEMBRE":"#FFD700"
+};
+
+const PROGRAMME = [
+  { mois:"AVRIL", semaines:[
+    { num:"S14", dates:"30 Mar – 5 Avr", ev1:{titre:"Ouverture de Saison — Réunion HMF",type:"—",desc:"Lancement officiel. Présentation du calendrier, des règles et inscriptions membres."}, ev2:null },
+    { num:"S15", dates:"6 – 12 Avr", ev1:{titre:"Qualifications GP Horizon — Manche 1",type:"COURSE / GP",desc:"Sessions de qualifications officielles. Attribution des positions sur la grille de départ."}, ev2:null },
+    { num:"S16", dates:"13 – 19 Avr", ev1:{titre:"GP Horizon — Manche 1",type:"COURSE / GP",desc:"1ère manche du championnat. Course principale, podium officiel, premiers points."}, ev2:{titre:"Après-Course & Debriefing",type:"—",desc:"Résultats officiels et publication du classement provisoire sur GP Horizon."} },
+    { num:"S17", dates:"20 – 26 Avr", ev1:{titre:"Rallye — Édition Printemps",type:"RALLYE",desc:"Premier rallye de la saison. Parcours surprise, ouvert à tous les membres HMF."}, ev2:null },
+    { num:"S18", dates:"27 Avr – 3 Mai", ev1:{titre:"Rallye — Édition #2",type:"RALLYE",desc:"Deuxième rallye du mois. Nouveau parcours, nouvelle ambiance. Toutes cylindrées."}, ev2:{titre:"Gymkhana Challenge",type:"CHALLENGE",desc:"Parcours gymkhana en zone fermée. Agilité, précision, style. Jury HMF officiel."} },
+  ]},
+  { mois:"MAI", semaines:[
+    { num:"S19", dates:"4 – 10 Mai", ev1:{titre:"Car Meet & Show — Printemps",type:"CAR MEET",desc:"Premier rassemblement de la saison. Véhicules customisés, concours de style, lounge."}, ev2:{titre:"Concours d'Élégance RP",type:"CAR MEET",desc:"Présentation des plus beaux builds. Vote communautaire, trophée du meilleur véhicule."} },
+    { num:"S20", dates:"11 – 17 Mai", ev1:{titre:"Time Trial Libre — Membres HMF",type:"CHALLENGE",desc:"Session ouverte pour battre ses chronos personnels. Résultats publiés sur Discord."}, ev2:null },
+    { num:"S21", dates:"18 – 24 Mai", ev1:{titre:"Rallye — Édition #3",type:"RALLYE",desc:"Rallye mensuel de mai. Parcours hors-piste, accessible à tous les membres."}, ev2:null },
+    { num:"S22", dates:"25 – 31 Mai", ev1:{titre:"Hill Climb Challenge",type:"CHALLENGE",desc:"Montée chronométrée sur route de montagne. Sportifs et véhicules légers. Record à battre."}, ev2:{titre:"Course Moto — Édition #1",type:"MOTO",desc:"Première course moto de la saison. Format simple, podium en fin d'épreuve."} },
+  ]},
+  { mois:"JUIN", semaines:[
+    { num:"S23", dates:"1 – 7 Juin", ev1:{titre:"Parade Nationale HMF",type:"PARADE",desc:"Défilé officiel à travers les artères principales. Représentation HMF, convoi organisé."}, ev2:{titre:"Show Statique Post-Parade",type:"CAR MEET",desc:"Exposition statique après la parade. Moment communautaire, photos officielles HMF."} },
+    { num:"S24", dates:"8 – 14 Juin", ev1:{titre:"Qualifications GP Horizon — Manche 1",type:"COURSE / GP",desc:"Qualifications pour la deuxième manche. Enjeux importants pour le classement général."}, ev2:null },
+    { num:"S25", dates:"15 – 21 Juin", ev1:{titre:"GP Horizon — Manche 1",type:"COURSE / GP",desc:"1ère manche du championnat GP Horizon. Podium officiel, attribution des premiers points."}, ev2:{titre:"Rallye — Édition #4",type:"RALLYE",desc:"Rallye de juin, format découverte. Tracé surprise, ouvert à tous les membres."} },
+    { num:"S26", dates:"22 – 28 Juin", ev1:{titre:"Drift Session Ouverte",type:"CHALLENGE",desc:"Session drift libre. Coaching disponible. Pas de classement officiel."}, ev2:{titre:"Course Moto — Édition #2",type:"MOTO",desc:"Course moto de juin. Parcours mixte, podium et résultats sur Discord."} },
+  ]},
+  { mois:"JUILLET", semaines:[
+    { num:"S27", dates:"29 Juin – 5 Juil", ev1:{titre:"Car Meet Estival",type:"CAR MEET",desc:"Rassemblement estival. Thème véhicules de plage & summertime builds."}, ev2:{titre:"Quad & Off-Road Challenge",type:"CHALLENGE",desc:"Épreuve off-road. Obstacles naturels, boue, montées extrêmes. Format chronométré."} },
+    { num:"S28", dates:"6 – 12 Juil", ev1:{titre:"Rallye — Édition #5",type:"RALLYE",desc:"Rallye estival, parcours accidenté. Format chronométré, toutes cylindrées."}, ev2:null },
+    { num:"S29", dates:"13 – 19 Juil", ev1:{titre:"Night Race — Édition Été",type:"COURSE / GP",desc:"Course nocturne sur route. Format unique, ambiance cinématique. Points bonus HMF."}, ev2:{titre:"Course Moto — Édition #3",type:"MOTO",desc:"Course moto estivale. Format sprint, ouvert à tous les deux-roues et quads."} },
+    { num:"S30", dates:"20 – 26 Juil", ev1:{titre:"Time Attack Invitationnel",type:"CHALLENGE",desc:"Défi au chrono sur invitation — Top pilotes du classement HMF. Record de piste."}, ev2:null },
+  ]},
+  { mois:"AOÛT", semaines:[
+    { num:"S31", dates:"27 Juil – 2 Août", ev1:{titre:"Drift Session — Édition #2",type:"CHALLENGE",desc:"Session drift libre. Ouverte à tous, ambiance décontractée. Coaching disponible."}, ev2:{titre:"Rallye — Édition #6",type:"RALLYE",desc:"Rallye de rentrée. Nouveau parcours, ambiance festive."} },
+    { num:"S32", dates:"3 – 9 Août", ev1:{titre:"Qualifications GP Horizon — Manche 2",type:"COURSE / GP",desc:"Qualifications pour la deuxième manche. Enjeux importants pour le classement."}, ev2:{titre:"Course Moto — Édition #4",type:"MOTO",desc:"Course moto d'août. Format endurance, ouvert à tous les deux-roues."} },
+    { num:"S33", dates:"10 – 16 Août", ev1:{titre:"GP Horizon — Manche 2",type:"COURSE / GP",desc:"2ème manche du championnat. Piste rapide, dépassements favorisés. Points doublés."}, ev2:{titre:"Convoi Roadtrip HMF",type:"CAR MEET",desc:"Grand roadtrip communautaire traversant tout le serveur. Voitures, motos, quads."} },
+    { num:"S34", dates:"17 – 23 Août", ev1:{titre:"Drag Race — Édition #2",type:"CHALLENGE",desc:"Deuxième journée drag race. Format brackets, ambiance fun. Classement interne HMF."}, ev2:{titre:"Rallye — Édition #7",type:"RALLYE",desc:"Rallye de fin d'août. Parcours long, format découverte. Toutes cylindrées."} },
+  ]},
+  { mois:"SEPTEMBRE", semaines:[
+    { num:"S36", dates:"31 Août – 6 Sep", ev1:{titre:"Course Moto — Édition #5",type:"MOTO",desc:"Course moto de septembre. Nouveau format challenge en équipe. Podium sur Discord."}, ev2:{titre:"Bilan Mi-Saison HMF",type:"—",desc:"Réunion officielle de mi-saison. Bilan des points, annonces et ajustements."} },
+    { num:"S37", dates:"7 – 13 Sep", ev1:{titre:"Parade Automobile — Édition #2",type:"PARADE",desc:"Deuxième parade de la saison. Convoi officiel HMF, représentation communautaire."}, ev2:{titre:"Rallye — Édition #8",type:"RALLYE",desc:"Rallye de septembre. Parcours inédit, ambiance compétitive."} },
+    { num:"S38", dates:"14 – 20 Sep", ev1:{titre:"Gymkhana Challenge — Édition #2",type:"CHALLENGE",desc:"Retour du gymkhana. Nouveau parcours, jury HMF officiel. Ambiance fun et précision."}, ev2:{titre:"Car Meet — Automne",type:"CAR MEET",desc:"Rassemblement de rentrée. Thème libre, tous véhicules acceptés."} },
+    { num:"S39", dates:"21 – 27 Sep", ev1:{titre:"Course Moto — Édition #6",type:"MOTO",desc:"Course moto de fin de saison. Format ouvert, deux-roues et quads bienvenus."}, ev2:null },
+  ]},
+  { mois:"OCTOBRE", semaines:[
+    { num:"S40", dates:"28 Sep – 4 Oct", ev1:{titre:"Qualifications GP Horizon — Grande Finale",type:"COURSE / GP",desc:"Qualifications décisives pour la grande finale du championnat."}, ev2:{titre:"Rallye — Édition #9",type:"RALLYE",desc:"Rallye d'octobre. Parcours automnal, ambiance festive. Format décontracté."} },
+    { num:"S41", dates:"5 – 11 Oct", ev1:{titre:"GP Horizon — GRANDE FINALE 🏆",type:"COURSE / GP",desc:"FINALE absolue du championnat GP Horizon 2026. Attribution du titre de Champion HMF."}, ev2:{titre:"Drift Session — Édition #3",type:"CHALLENGE",desc:"Session drift de fin de saison. Ouverte à tous, ambiance décontractée."} },
+    { num:"S42", dates:"12 – 18 Oct", ev1:{titre:"Course Moto — Édition #7",type:"MOTO",desc:"Avant-dernière course moto de la saison. Format sprint, résultats sur Discord."}, ev2:{titre:"Car Meet — Clôture Saison",type:"CAR MEET",desc:"Rassemblement de fin de saison. Retour sur les meilleurs moments HMF."} },
+    { num:"S43", dates:"19 – 25 Oct", ev1:{titre:"Préparation Gala — Annonces & Nominés",type:"—",desc:"Derniers préparatifs pour le Gala. Annonce des nominés, programme soirée."}, ev2:null },
+  ]},
+  { mois:"NOVEMBRE", semaines:[
+    { num:"S44", dates:"26 Oct – 1 Nov", ev1:{titre:"GALA DE REMISE DES TROPHÉES 🎖️",type:"CÉRÉMONIE",desc:"Soirée officielle de clôture de la saison 2026. Trophées toutes disciplines, discours du Président."}, ev2:{titre:"Annonce Saison 2027",type:"—",desc:"Révélation des nouveautés 2027 : nouvelles disciplines, nouvelles règles, inscriptions."} },
+    { num:"S45", dates:"2 – 8 Nov", ev1:{titre:"Bilan de Saison & Assemblée HMF",type:"—",desc:"Assemblée générale de fin de saison. Bilan comptable, sportif, votes et planification 2027."}, ev2:null },
+  ]},
+];
+
+function eventCard(ev) {
+  if (!ev) return `<div class="event-card empty"><span>— Semaine libre —</span></div>`;
+  const color = TYPE_COLOR[ev.type] || "#333";
+  const badge = ev.type !== "—" ? `<span class="ev-badge">${ev.type}</span>` : "";
+  return `<div class="event-card" style="--accent:${color}">
+    <div class="ev-top"><div class="ev-title">${ev.titre}</div>${badge}</div>
+    <div class="ev-desc">${ev.desc}</div>
+  </div>`;
+}
+
+function buildProgramme() {
+  const main = document.getElementById('main');
+  const navLinks = document.getElementById('navLinks');
+  const mobileNav = document.getElementById('mobileNav');
+
+  PROGRAMME.forEach(m => {
+    const mc = MOIS_COLOR[m.mois] || "#FF4500";
+    const id = m.mois.toLowerCase().replace(/û/g,'u');
+
+    // Nav link
+    navLinks.innerHTML += `<li><a href="#${id}">${m.mois}</a></li>`;
+    mobileNav.innerHTML += `<a href="#${id}" onclick="closeMenu()">${m.mois}</a>`;
+    mobileNav.innerHTML += `<a href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>`;
+
+    const rows = m.semaines.map((sem,i) => `
+      <div class="semaine-row" style="transition-delay:${i*0.06}s">
+        <div class="cell-sem" style="border-top:2px solid ${mc}">
+          <div class="sem-num" style="color:${mc}">${sem.num}</div>
+          <div class="sem-year">2026</div>
+        </div>
+        <div class="cell-date">${sem.dates}</div>
+        ${eventCard(sem.ev1)}
+        ${eventCard(sem.ev2)}
+      </div>`).join('');
+
+    main.innerHTML += `
+      <span class="anchor" id="${id}"></span>
+      <div class="mois-section" data-mois="${m.mois}">
+        <div class="mois-header">
+          <div class="mois-badge" style="color:${mc}">${m.mois}</div>
+          <div class="mois-line" style="background:linear-gradient(90deg,${mc},transparent)"></div>
+          <div class="mois-count">${m.semaines.length} semaine${m.semaines.length>1?'s':''}</div>
+        </div>
+        <div class="table-header">
+          <div class="col-hdr">SEM.</div>
+          <div class="col-hdr">DATE</div>
+          <div class="col-hdr">ÉVÉNEMENT 1</div>
+          <div class="col-hdr">ÉVÉNEMENT 2</div>
+        </div>
+        ${rows}
+      </div>`;
+  });
+
+  // Remove duplicate nav back links
+  const links = mobileNav.querySelectorAll('a[href*="gp-horizon/index"]');
+  for(let i=1;i<links.length;i++) links[i].remove();
+}
+
+function filterMonth(mois, btn) {
+  document.querySelectorAll('.btn-filtre').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.mois-section').forEach(s => {
+    s.style.display = (mois === 'tous' || s.dataset.mois === mois) ? 'block' : 'none';
+  });
+}
+
+function toggleMenu() { document.getElementById('mobileNav').classList.toggle('open'); }
+function closeMenu() { document.getElementById('mobileNav').classList.remove('open'); }
+
+buildProgramme();
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.05 });
+document.querySelectorAll('.semaine-row').forEach(el => observer.observe(el));
+
+// Active nav
+const anchors = document.querySelectorAll('.anchor');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  anchors.forEach(a => { if(window.scrollY >= a.offsetTop - 120) cur = a.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+});
+</script>
+</body>
+</html>
