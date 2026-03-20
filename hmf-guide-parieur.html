@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide du Parieur — GP Horizon HMF</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF4500;--gold:#FFD700;--amber:#FF8C00;--dark:#0A0A0A;--dark2:#141414;--dark3:#1C1C1C;--dark4:#262626;--white:#F2F2F2;--gray:#909090;--gray2:#606060;}
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{background:var(--dark);font-family:'Barlow',sans-serif;color:var(--white);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--dark2);}::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:3px solid var(--orange);padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+  .nav-badge{width:50px;height:50px;border-radius:50%;background:var(--orange);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;color:white;box-shadow:0 0 18px rgba(255,69,0,0.5);flex-shrink:0;}
+  .nav-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--white);line-height:1.1;}
+  .nav-title small{display:block;font-size:10px;letter-spacing:3px;color:var(--orange);font-weight:700;}
+  .nav-links{display:flex;gap:2px;list-style:none;flex:1;justify-content:center;flex-wrap:wrap;}
+  .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:7px 11px;border-radius:3px;transition:all 0.15s;white-space:nowrap;}
+  .nav-links a:hover{color:var(--orange);background:rgba(255,69,0,0.1);}
+  .nav-links a.active{color:var(--orange);background:rgba(255,69,0,0.08);}
+  .nav-actions{display:flex;gap:8px;flex-shrink:0;}
+  .nav-btn{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--orange);transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:var(--orange);color:white;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+  .burger span{width:22px;height:2px;background:var(--gray);border-radius:2px;}
+  .mobile-nav{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid var(--dark4);padding:12px 20px;flex-direction:column;gap:2px;z-index:99;}
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:10px 12px;border-radius:3px;}
+  .mobile-nav a:hover{color:var(--orange);}
+  .hero{margin-top:76px;background:linear-gradient(180deg,#060606 0%,var(--dark) 100%);border-bottom:3px solid var(--orange);padding:52px 24px 36px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-100px;right:-150px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(255,69,0,0.08) 0%,transparent 65%);pointer-events:none;}
+  .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-left{flex:1;min-width:280px;}
+  .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .hero-tag::before{content:'';width:24px;height:2px;background:var(--orange);}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,56px);letter-spacing:3px;line-height:1;text-transform:uppercase;margin-bottom:12px;background:linear-gradient(90deg,#fff 30%,var(--amber) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-desc{font-size:14px;color:var(--gray);line-height:1.7;max-width:560px;font-style:italic;}
+  .hero-desc strong{color:var(--white);font-style:normal;}
+  .hero-stats{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero-stat{background:var(--dark2);border:1px solid var(--dark4);border-top:2px solid var(--orange);padding:12px 18px;text-align:center;min-width:80px;}
+  .hero-stat .val{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--orange);line-height:1;}
+  .hero-stat .lbl{font-size:9px;color:var(--gray2);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+  .main{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  .anchor{display:block;height:90px;margin-top:-90px;visibility:hidden;}
+  .section{margin-bottom:40px;opacity:0;transform:translateY(16px);transition:all 0.4s ease;}
+  .section.visible{opacity:1;transform:translateY(0);}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--dark4);display:flex;align-items:center;gap:10px;}
+  .section-title .icon{font-size:22px;}
+  .card{background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--orange);padding:20px;margin-bottom:14px;}
+  .card p{font-size:14px;color:var(--gray);line-height:1.75;}
+  .card p strong{color:var(--white);}
+  .rule-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .rule-list li{font-size:14px;color:var(--gray);line-height:1.65;padding-left:16px;position:relative;}
+  .rule-list li::before{content:'›';position:absolute;left:0;color:var(--orange);font-weight:900;font-size:16px;line-height:1.3;}
+  .hmf-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .hmf-table th{background:var(--dark3);color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--orange);}
+  .hmf-table td{padding:10px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);vertical-align:top;line-height:1.55;}
+  .hmf-table tr:hover td{background:rgba(255,69,0,0.03);}
+  .hmf-table td strong{color:var(--white);}
+  .steps{display:flex;flex-direction:column;gap:6px;}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:10px 0;}
+  .step-num{width:30px;height:30px;border-radius:50%;background:var(--orange);color:white;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step-content{flex:1;}
+  .step-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:3px;}
+  .step-desc{font-size:13px;color:var(--gray);line-height:1.6;}
+  .pari-types{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+  .pari-card{background:var(--dark2);border:1px solid var(--dark4);border-top:3px solid var(--tc);padding:16px;text-align:center;}
+  .pari-icon{font-size:28px;margin-bottom:8px;}
+  .pari-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:4px;}
+  .pari-desc{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:8px;}
+  .pari-cote{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;}
+  .example-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .example-table th{background:var(--orange);color:white;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;}
+  .example-table td{padding:10px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);background:var(--dark2);}
+  .example-table tr:last-child td{background:var(--dark3);color:var(--white);font-weight:700;}
+  .example-table td strong{color:var(--orange);}
+  .info-box{padding:12px 16px;border-radius:2px;font-size:13px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;}
+  .info-box.success{background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.25);color:#81c784;}
+  .info-box.warning{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.3);color:var(--amber);}
+  .classement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .classement-item{background:var(--dark2);border:1px solid var(--dark4);border-left:3px solid var(--orange);padding:12px 16px;}
+  .classement-col{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+  .classement-def{font-size:13px;color:var(--gray);line-height:1.5;}
+  .site-footer{background:var(--dark2);border-top:3px solid var(--orange);padding:28px 24px;text-align:center;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;color:var(--orange);margin-bottom:6px;}
+  .footer-sub{font-size:12px;color:var(--gray2);letter-spacing:1px;margin-bottom:14px;}
+  .footer-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .footer-link{color:var(--orange);text-decoration:none;font-size:12px;letter-spacing:1px;border-bottom:1px solid transparent;transition:border-color 0.15s;}
+  .footer-link:hover{border-bottom-color:var(--orange);}
+  @media(max-width:768px){.nav-links,.nav-actions{display:none;}.burger{display:flex;}.pari-types{grid-template-columns:1fr;}.classement-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="#"><div class="nav-badge">HMF</div><span class="nav-title"><small>GP Horizon · HMF</small>Guide du Parieur</span></a>
+  <ul class="nav-links">
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#comment">Comment parier</a></li>
+    <li><a href="#types">Types de paris</a></li>
+    <li><a href="#exemple">Exemple</a></li>
+    <li><a href="#regles">Règles</a></li>
+    <li><a href="#classement">Classement</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+  </div>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#intro" onclick="closeMenu()">🎲 Introduction</a>
+  <a href="#comment" onclick="closeMenu()">📋 Comment parier</a>
+  <a href="#types" onclick="closeMenu()">🏆 Types de paris</a>
+  <a href="#exemple" onclick="closeMenu()">📊 Exemple</a>
+  <a href="#regles" onclick="closeMenu()">📜 Règles</a>
+  <a href="#classement" onclick="closeMenu()">🏅 Classement</a>
+  <a href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">GP Horizon · Horizon Motorsport Fédération</div>
+      <h1>Guide du<br>Parieur</h1>
+      <p class="hero-desc">Tout savoir pour parier sur le championnat. Les paris GP Horizon sont <strong>100% fictifs</strong> en dollars RP — aucun échange d'argent réel. Misez, gagnez, grimpez au classement !</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">3</div><div class="lbl">Types de paris</div></div>
+      <div class="hero-stat"><div class="val">50k$</div><div class="lbl">Mise max</div></div>
+      <div class="hero-stat"><div class="val">x15</div><div class="lbl">Cote max</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <span class="anchor" id="intro"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">🎲</span> Qu'est-ce que le système de paris ?</div>
+    <div class="card">
+      <p>Le système de paris <strong>GP HORIZON</strong> te permet de miser de l'argent virtuel (en <strong>dollars RP</strong>) sur les résultats des courses. Chaque manche, des cotes sont publiées sur les pilotes et les écuries. Plus la victoire est improbable, plus la cote est élevée, et donc plus ton gain potentiel est important.</p>
+      <div class="info-box success" style="margin-top:12px"><span>💡</span><span>Les paris sont purement fictifs et font partie intégrante de l'expérience de jeu. Il n'y a <strong>aucun échange d'argent réel</strong>.</span></div>
+    </div>
+  </div>
+
+  <span class="anchor" id="comment"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">📋</span> Comment placer un pari ?</div>
+    <div class="card">
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Accéder à la page Paris</div><div class="step-desc">Rends-toi sur la page <strong>Paris</strong> du site GP HORIZON.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Renseigner ton identité</div><div class="step-desc">Saisis ton <strong>Pseudo Discord</strong> et ton <strong>Nom RP</strong>.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Sélectionner la manche</div><div class="step-desc">Choisis la manche concernée dans le menu déroulant.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Choisir tes paris</div><div class="step-desc">Consulte les cotes affichées et sélectionne tes paris (Gagnant, Podium, Écurie).</div></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Saisir ta mise</div><div class="step-desc">Entre le montant de ta mise. Le <strong>gain potentiel se calcule automatiquement</strong>.</div></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">Valider</div><div class="step-desc">Vérifie le récapitulatif puis clique sur <strong>Valider mes paris</strong>. Une confirmation s'affiche et tes paris sont enregistrés !</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="anchor" id="types"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">🏆</span> Les Types de Paris</div>
+    <div class="pari-types">
+      <div class="pari-card" style="--tc:var(--orange)">
+        <div class="pari-icon">🏆</div>
+        <div class="pari-name">Pilote Gagnant</div>
+        <div class="pari-desc">Le pilote que tu choisis termine <strong>1er</strong> de la course.</div>
+        <div class="pari-cote" style="color:var(--orange)">x1.5 → x15.0</div>
+      </div>
+      <div class="pari-card" style="--tc:var(--amber)">
+        <div class="pari-icon">🥉</div>
+        <div class="pari-name">Pilote Podium</div>
+        <div class="pari-desc">Le pilote que tu choisis termine dans le <strong>Top 3</strong>.</div>
+        <div class="pari-cote" style="color:var(--amber)">x1.2 → x3.0</div>
+      </div>
+      <div class="pari-card" style="--tc:#2196F3">
+        <div class="pari-icon">🏎️</div>
+        <div class="pari-name">Écurie Gagnante</div>
+        <div class="pari-desc">L'écurie que tu choisis remporte la course (1er pilote).</div>
+        <div class="pari-cote" style="color:#2196F3">x1.5 → x6.0</div>
+      </div>
+    </div>
+  </div>
+
+  <span class="anchor" id="exemple"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span> Exemple de Pari Complet</div>
+    <div class="card">
+      <table class="example-table">
+        <thead><tr><th>Pari</th><th>Mise</th><th>Cote</th><th>Gain Potentiel</th></tr></thead>
+        <tbody>
+          <tr><td>Pilote Gagnant</td><td>10 000 $</td><td>x2.5</td><td><strong>25 000 $</strong></td></tr>
+          <tr><td>Pilote Podium</td><td>5 000 $</td><td>x1.8</td><td><strong>9 000 $</strong></td></tr>
+          <tr><td>Écurie Gagnante</td><td>8 000 $</td><td>x3.0</td><td><strong>24 000 $</strong></td></tr>
+          <tr><td><strong>TOTAL</strong></td><td><strong>23 000 $</strong></td><td>—</td><td><strong>58 000 $</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="info-box success" style="margin-top:12px"><span>💰</span><span>Dans cet exemple, si les 3 paris sont gagnants, tu récupères <strong>58 000 $</strong> pour une mise totale de 23 000 $, soit un <strong>bénéfice net de 35 000 $</strong>.</span></div>
+    </div>
+  </div>
+
+  <span class="anchor" id="regles"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">📜</span> Règles Importantes</div>
+    <div class="card">
+      <table class="hmf-table">
+        <tbody>
+          <tr><td>🏆</td><td>Limite de mise par course : <strong>50 000 $</strong> au total (tous paris confondus).</td></tr>
+          <tr><td>💰</td><td>Le capital de départ est attribué en début de saison par le Directeur Sportif.</td></tr>
+          <tr><td>📅</td><td>Les paris sont ouverts dès la publication des cotes, jusqu'à <strong>minuit la veille</strong> de la course.</td></tr>
+          <tr><td>✅</td><td>Les gains sont crédités sur ton compte après validation officielle des résultats.</td></tr>
+          <tr><td>❌</td><td>Aucun pari ne peut être annulé ou modifié une fois soumis.</td></tr>
+          <tr><td>⚠️</td><td>En cas d'abandon, les mises sur ce pilote/écurie sont perdues (sauf règle contraire).</td></tr>
+          <tr><td>🎯</td><td>Tu peux placer plusieurs paris en même temps (gagnant + podium + écurie).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <span class="anchor" id="classement"></span>
+  <div class="section">
+    <div class="section-title"><span class="icon">🏅</span> Classement des Parieurs</div>
+    <div class="card" style="margin-bottom:14px">
+      <p>Un classement général des parieurs est disponible sur la page <strong>Classements</strong> du site. Il affiche :</p>
+    </div>
+    <div class="classement-grid">
+      <div class="classement-item"><div class="classement-col">Position</div><div class="classement-def">Ton classement parmi tous les parieurs actifs de la saison.</div></div>
+      <div class="classement-item"><div class="classement-col">Capital</div><div class="classement-def">Ton solde actuel en dollars RP.</div></div>
+      <div class="classement-item"><div class="classement-col">Gains</div><div class="classement-def">La somme gagnée ou perdue depuis le début de la saison.</div></div>
+      <div class="classement-item"><div class="classement-col">Taux de Réussite</div><div class="classement-def">Pourcentage de tes paris gagnants sur le total de paris placés.</div></div>
+    </div>
+    <div class="info-box warning" style="margin-top:14px"><span>📞</span><span>Pour toute question sur tes paris, un litige ou une erreur dans les résultats, contacte le <strong>Directeur Sportif</strong> directement sur Discord dans les <strong>24h suivant la course</strong>. Discord : <a href="https://<a href="https://discord.gg/RSnJhrnn2R" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#5865F2;color:white;text-decoration:none;padding:8px 16px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;"><svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>discord.gg/RSnJhrnn2R</a>" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#5865F2;color:white;text-decoration:none;padding:8px 16px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;"><svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>discord.gg/RSnJhrnn2R</a></span></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">GP HORIZON · HORIZON MOTORSPORT FÉDÉRATION</div>
+    <div class="footer-sub">Président Fondateur : Zak Boulkif · FlashBack FA · Saison 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-reglement.html">Règlement</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-affiche-programme.html">Programme</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-benevoles.html">Bénévoles</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/index.html">GP Horizon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
+  function closeMenu(){document.getElementById('mobileNav').classList.remove('open');}
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.05});
+  document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+  const anchors=document.querySelectorAll('.anchor');
+  window.addEventListener('scroll',()=>{let cur='';anchors.forEach(a=>{if(window.scrollY>=a.offsetTop-120)cur=a.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+</script>
+</body>
+</html>

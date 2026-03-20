@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide de Fixation des Cotes — HMF Interne</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF4500;--gold:#FFD700;--amber:#FF8C00;--dark:#0A0A0A;--dark2:#141414;--dark3:#1C1C1C;--dark4:#262626;--white:#F2F2F2;--gray:#909090;--gray2:#606060;}
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{background:var(--dark);font-family:'Barlow',sans-serif;color:var(--white);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--dark2);}::-webkit-scrollbar-thumb{background:var(--amber);border-radius:2px;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:3px solid var(--amber);padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+  .nav-badge{width:50px;height:50px;border-radius:50%;background:var(--amber);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;color:white;box-shadow:0 0 18px rgba(255,140,0,0.5);flex-shrink:0;}
+  .nav-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--white);line-height:1.1;}
+  .nav-title small{display:block;font-size:10px;letter-spacing:3px;color:var(--amber);font-weight:700;}
+  .nav-links{display:flex;gap:2px;list-style:none;flex:1;justify-content:center;flex-wrap:wrap;}
+  .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:7px 11px;border-radius:3px;transition:all 0.15s;white-space:nowrap;}
+  .nav-links a:hover{color:var(--amber);background:rgba(255,140,0,0.1);}
+  .nav-links a.active{color:var(--amber);background:rgba(255,140,0,0.08);}
+  .nav-actions{display:flex;gap:8px;flex-shrink:0;}
+  .nav-btn{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--orange);transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:var(--orange);color:white;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+  .burger span{width:22px;height:2px;background:var(--gray);border-radius:2px;}
+  .mobile-nav{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid var(--dark4);padding:12px 20px;flex-direction:column;gap:2px;z-index:99;}
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:10px 12px;border-radius:3px;}
+  .hero{margin-top:76px;background:linear-gradient(180deg,#060606 0%,var(--dark) 100%);border-bottom:3px solid var(--amber);padding:52px 24px 36px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-100px;right:-150px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(255,140,0,0.06) 0%,transparent 65%);pointer-events:none;}
+  .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-left{flex:1;min-width:280px;}
+  .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .hero-tag::before{content:'';width:24px;height:2px;background:var(--amber);}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(28px,4vw,50px);letter-spacing:3px;line-height:1;text-transform:uppercase;margin-bottom:12px;background:linear-gradient(90deg,#fff 30%,var(--amber) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-desc{font-size:14px;color:var(--gray);line-height:1.7;max-width:560px;font-style:italic;}
+  .hero-desc strong{color:var(--white);font-style:normal;}
+  .main{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  .anchor{display:block;height:90px;margin-top:-90px;visibility:hidden;}
+  .section{margin-bottom:40px;opacity:0;transform:translateY(16px);transition:all 0.4s ease;}
+  .section.visible{opacity:1;transform:translateY(0);}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--dark4);display:flex;align-items:center;gap:10px;}
+  .card{background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--amber);padding:20px;margin-bottom:14px;}
+  .card p{font-size:14px;color:var(--gray);line-height:1.75;margin-bottom:8px;}
+  .card p:last-child{margin-bottom:0;}
+  .card p strong{color:var(--white);}
+  .hmf-table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+  .hmf-table th{background:var(--dark3);color:var(--amber);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--amber);}
+  .hmf-table td{padding:10px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);vertical-align:top;line-height:1.55;font-size:13px;}
+  .hmf-table tr:hover td{background:rgba(255,140,0,0.03);}
+  .hmf-table td strong{color:var(--white);}
+  .hmf-table td:first-child{color:var(--white);font-weight:600;}
+  .profil-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:12px 0;}
+  .profil-card{background:var(--dark2);border:1px solid var(--dark4);border-top:3px solid var(--pc);padding:14px 12px;text-align:center;}
+  .profil-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:8px;line-height:1.2;}
+  .profil-cote{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;line-height:1;margin-bottom:3px;}
+  .profil-label{font-size:9px;color:var(--gray2);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+  .profil-example{font-size:11px;color:var(--gray);font-style:italic;line-height:1.4;}
+  .info-box{padding:12px 16px;border-radius:2px;font-size:13px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;margin:10px 0;}
+  .info-box.warning{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.3);color:var(--amber);}
+  .info-box.info{background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.25);color:#64b5f6;}
+  .info-box.success{background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.25);color:#81c784;}
+  .formula-box{background:var(--dark3);border:1px solid var(--amber);padding:16px 20px;margin:12px 0;text-align:center;}
+  .formula-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:2px;color:var(--amber);margin-bottom:6px;}
+  .formula-sub{font-size:12px;color:var(--gray);font-style:italic;}
+  .site-footer{background:var(--dark2);border-top:3px solid var(--amber);padding:28px 24px;text-align:center;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;color:var(--amber);margin-bottom:6px;}
+  .footer-sub{font-size:12px;color:var(--gray2);letter-spacing:1px;margin-bottom:14px;}
+  .footer-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .footer-link{color:var(--orange);text-decoration:none;font-size:12px;letter-spacing:1px;border-bottom:1px solid transparent;transition:border-color 0.15s;}
+  .footer-link:hover{border-bottom-color:var(--orange);}
+  @media(max-width:900px){.nav-links,.nav-actions{display:none;}.burger{display:flex;}.profil-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="#"><div class="nav-badge">📊</div><span class="nav-title"><small>Manuel Interne — Réservé aux employés HMF</small>Guide des Cotes</span></a>
+  <ul class="nav-links">
+    <li><a href="#fonctionnement">Fonctionnement</a></li>
+    <li><a href="#facteurs">Facteurs</a></li>
+    <li><a href="#bareme">Barème</a></li>
+    <li><a href="#marge">Marge Bookmaker</a></li>
+    <li><a href="#sheets">Google Sheets</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/hmf-guide-staff.html">Guide Staff</a>
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+  </div>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#fonctionnement" onclick="closeMenu()">📋 Fonctionnement</a>
+  <a href="#facteurs" onclick="closeMenu()">⚖️ Facteurs</a>
+  <a href="#bareme" onclick="closeMenu()">📊 Barème</a>
+  <a href="#marge" onclick="closeMenu()">🔢 Marge Bookmaker</a>
+  <a href="#sheets" onclick="closeMenu()">📑 Google Sheets</a>
+  <a href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Manuel Interne · Réservé aux employés HMF</div>
+      <h1>Guide de Fixation<br>des Cotes</h1>
+      <p class="hero-desc">Comment <strong>fixer, équilibrer et publier les cotes</strong> pour chaque manche du championnat GP Horizon. Barème de référence, marge bookmaker et structure Google Sheets.</p>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <span class="anchor" id="fonctionnement"></span>
+  <div class="section">
+    <div class="section-title">📋 Rappel du Fonctionnement</div>
+    <div class="card">
+      <p>Les cotes sont des <strong>multiplicateurs de mise</strong>. Elles représentent la probabilité estimée qu'un pilote ou une écurie remporte la course.</p>
+      <p><strong>Cote basse</strong> = favori (gain faible mais probable). <strong>Cote haute</strong> = outsider (gain élevé mais peu probable).</p>
+      <div class="info-box info" style="margin-top:8px"><span>💡</span><span>Exemple : une mise de <strong>10 000 $</strong> sur une cote de <strong>x3.0</strong> rapporte <strong>30 000 $</strong> si le pari est gagnant.</span></div>
+    </div>
+  </div>
+
+  <span class="anchor" id="facteurs"></span>
+  <div class="section">
+    <div class="section-title">⚖️ Facteurs à Prendre en Compte</div>
+    <div class="card">
+      <table class="hmf-table">
+        <thead><tr><th>Facteur</th><th>Impact sur la cote</th></tr></thead>
+        <tbody>
+          <tr><td>Classement actuel (pilote/écurie)</td><td>Leader du championnat → cote basse (favori). Dernier → cote haute.</td></tr>
+          <tr><td>Résultats récents (3 dernières manches)</td><td>Victoires récentes → cote abaissée. Abandons/DNF → cote augmentée.</td></tr>
+          <tr><td>Type de circuit</td><td>Adapter selon les forces connues (circuit urbain, rapide, etc.).</td></tr>
+          <tr><td>Nombre de participants</td><td>Plus il y a de pilotes, plus les cotes peuvent être élevées.</td></tr>
+          <tr><td>Marge bookmaker</td><td>La somme des (1/cote) doit être légèrement > 1 (recommandé : 1.05 à 1.15).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <span class="anchor" id="bareme"></span>
+  <div class="section">
+    <div class="section-title">📊 Barème de Référence des Cotes</div>
+    <div class="profil-grid">
+      <div class="profil-card" style="--pc:var(--orange)">
+        <div class="profil-name">Grand Favori</div>
+        <div class="profil-cote" style="color:var(--orange)">x1.2 — x1.8</div>
+        <div class="profil-label">Cote Victoire</div>
+        <div class="profil-cote" style="color:var(--gray);font-size:14px">x1.1 — x1.4</div>
+        <div class="profil-label">Cote Podium</div>
+        <div class="profil-example">Leader du championnat, 3 victoires consécutives</div>
+      </div>
+      <div class="profil-card" style="--pc:var(--amber)">
+        <div class="profil-name">Favori</div>
+        <div class="profil-cote" style="color:var(--amber)">x1.8 — x2.5</div>
+        <div class="profil-label">Cote Victoire</div>
+        <div class="profil-cote" style="color:var(--gray);font-size:14px">x1.4 — x1.8</div>
+        <div class="profil-label">Cote Podium</div>
+        <div class="profil-example">Top 3 au général, bons résultats récents</div>
+      </div>
+      <div class="profil-card" style="--pc:#2196F3">
+        <div class="profil-name">Outsider</div>
+        <div class="profil-cote" style="color:#2196F3">x2.5 — x4.0</div>
+        <div class="profil-label">Cote Victoire</div>
+        <div class="profil-cote" style="color:var(--gray);font-size:14px">x1.8 — x2.5</div>
+        <div class="profil-label">Cote Podium</div>
+        <div class="profil-example">Mid-field, résultats irréguliers</div>
+      </div>
+      <div class="profil-card" style="--pc:#9C27B0">
+        <div class="profil-name">Longshot</div>
+        <div class="profil-cote" style="color:#9C27B0">x4.0 — x8.0</div>
+        <div class="profil-label">Cote Victoire</div>
+        <div class="profil-cote" style="color:var(--gray);font-size:14px">x2.5 — x4.0</div>
+        <div class="profil-label">Cote Podium</div>
+        <div class="profil-example">Bas du classement, peu de résultats</div>
+      </div>
+      <div class="profil-card" style="--pc:var(--gray2)">
+        <div class="profil-name">Outsider Extrême</div>
+        <div class="profil-cote" style="color:var(--gray)">x8.0 — x15.0</div>
+        <div class="profil-label">Cote Victoire</div>
+        <div class="profil-cote" style="color:var(--gray);font-size:14px">x4.0 — x8.0</div>
+        <div class="profil-label">Cote Podium</div>
+        <div class="profil-example">Nouveau pilote, historique inconnu</div>
+      </div>
+    </div>
+    <div class="info-box warning"><span>⚠️</span><span>La <strong>cote Podium est toujours inférieure</strong> à la cote Victoire (probabilité plus élevée d'être dans le Top 3 que d'être 1er).</span></div>
+  </div>
+
+  <span class="anchor" id="marge"></span>
+  <div class="section">
+    <div class="section-title">🔢 Vérification de la Marge Bookmaker</div>
+    <div class="card">
+      <p>La marge garantit l'équilibre financier du système sur le long terme.</p>
+      <div class="formula-box">
+        <div class="formula-text">Σ (1 / Cote Victoire) pour chaque concurrent</div>
+        <div class="formula-sub">Résultat cible : entre 1.05 et 1.15</div>
+      </div>
+      <div class="info-box warning"><span>⚠️</span><span>Si &lt; 1.00 → risque de perte pour la HMF. Si &gt; 1.20 → cotes trop basses, parieurs déçus.</span></div>
+      <p style="margin-top:12px"><strong>Exemple pour une course à 5 pilotes :</strong></p>
+      <table class="hmf-table" style="margin-top:8px">
+        <thead><tr><th>Pilote</th><th>Cote Victoire</th><th>1 / Cote</th><th>Commentaire</th></tr></thead>
+        <tbody>
+          <tr><td>Ryan Okafor</td><td style="color:var(--orange)">1.5</td><td>0.667</td><td>Grand favori</td></tr>
+          <tr><td>Marco Delacroix</td><td style="color:var(--amber)">2.5</td><td>0.400</td><td>Favori</td></tr>
+          <tr><td>Léa Fontaine</td><td>4.0</td><td>0.250</td><td>Outsider</td></tr>
+          <tr><td>Seb Morales</td><td>6.0</td><td>0.167</td><td>Longshot</td></tr>
+          <tr><td>New Pilot</td><td>10.0</td><td>0.100</td><td>Nouveau</td></tr>
+          <tr><td><strong>TOTAL</strong></td><td>—</td><td><strong style="color:var(--amber)">1.584</strong></td><td style="color:var(--amber)">Marge trop élevée — à ajuster</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box info" style="margin-top:10px"><span>💡</span><span>Dans cet exemple, la marge est de 1.584 — c'est trop élevé. Tu peux <strong>abaisser légèrement les cotes des outsiders</strong> pour ramener la marge vers 1.10.</span></div>
+    </div>
+  </div>
+
+  <span class="anchor" id="sheets"></span>
+  <div class="section">
+    <div class="section-title">📑 Structure Google Sheets — Feuille Cotes</div>
+    <div class="card">
+      <p>Chaque ligne = un concurrent pour la manche à venir. <strong>Ne supprimer aucune colonne.</strong></p>
+      <table class="hmf-table">
+        <thead><tr><th>Champ</th><th>Valeur attendue</th></tr></thead>
+        <tbody>
+          <tr><td>Nom</td><td>Nom exact du pilote ou de l'écurie (doit correspondre aux données du site).</td></tr>
+          <tr><td>Type</td><td>"Pilote" ou "Écurie" (sensible à la casse).</td></tr>
+          <tr><td>Cote Victoire</td><td>Nombre décimal (ex: 2.5). Obligatoire pour les deux types.</td></tr>
+          <tr><td>Cote Podium</td><td>Nombre décimal (ex: 1.6). Uniquement pour les pilotes.</td></tr>
+          <tr><td>Actif</td><td>"OUI" = affiché sur le site. "NON" = masqué (pilote absent/suspendu).</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box warning" style="margin-top:10px"><span>⚠️</span><span>Les cotes doivent être fixées par le <strong>Responsable Paris</strong> et validées par le <strong>Directeur Sportif</strong> avant publication. Ne jamais modifier les cotes après la fermeture des paris d'une manche.</span></div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">GUIDE COTES — GP HORIZON · HMF INTERNE</div>
+    <div class="footer-sub">Président Fondateur : Zak Boulkif · FlashBack FA · Saison 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-staff.html">Guide Staff</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-parieur.html">Guide Parieur</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-reglement.html">Règlement</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/index.html">GP Horizon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
+  function closeMenu(){document.getElementById('mobileNav').classList.remove('open');}
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.05});
+  document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+  const anchors=document.querySelectorAll('.anchor');
+  window.addEventListener('scroll',()=>{let cur='';anchors.forEach(a=>{if(window.scrollY>=a.offsetTop-120)cur=a.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+</script>
+</body>
+</html>

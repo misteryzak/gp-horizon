@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Règlement Staff — HMF Confidentiel</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF4500;--gold:#FFD700;--amber:#FF8C00;--dark:#0A0A0A;--dark2:#141414;--dark3:#1C1C1C;--dark4:#262626;--white:#F2F2F2;--gray:#909090;--gray2:#606060;--red:#E53935;}
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{background:var(--dark);font-family:'Barlow',sans-serif;color:var(--white);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--dark2);}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:3px solid var(--red);padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+  .nav-badge{width:50px;height:50px;border-radius:50%;background:var(--red);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;color:white;box-shadow:0 0 18px rgba(229,57,53,0.5);flex-shrink:0;}
+  .nav-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--white);line-height:1.1;}
+  .nav-title small{display:block;font-size:10px;letter-spacing:3px;color:var(--red);font-weight:700;}
+  .nav-links{display:flex;gap:2px;list-style:none;flex:1;justify-content:center;flex-wrap:wrap;}
+  .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:7px 11px;border-radius:3px;transition:all 0.15s;white-space:nowrap;}
+  .nav-links a:hover{color:var(--red);background:rgba(229,57,53,0.1);}
+  .nav-links a.active{color:var(--red);background:rgba(229,57,53,0.08);}
+  .nav-actions{display:flex;gap:8px;flex-shrink:0;}
+  .nav-btn{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--orange);transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:var(--orange);color:white;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+  .burger span{width:22px;height:2px;background:var(--gray);border-radius:2px;}
+  .mobile-nav{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid var(--dark4);padding:12px 20px;flex-direction:column;gap:2px;z-index:99;}
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:10px 12px;border-radius:3px;}
+  .hero{margin-top:76px;background:linear-gradient(180deg,#060606 0%,var(--dark) 100%);border-bottom:3px solid var(--red);padding:52px 24px 36px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-100px;right:-150px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(229,57,53,0.06) 0%,transparent 65%);pointer-events:none;}
+  .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-left{flex:1;min-width:280px;}
+  .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .hero-tag::before{content:'';width:24px;height:2px;background:var(--red);}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,56px);letter-spacing:3px;line-height:1;text-transform:uppercase;margin-bottom:12px;background:linear-gradient(90deg,#fff 30%,var(--red) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-desc{font-size:14px;color:var(--gray);line-height:1.7;max-width:560px;font-style:italic;}
+  .hero-desc strong{color:var(--white);font-style:normal;}
+  .hero-right{display:flex;flex-direction:column;gap:8px;}
+  .conf-box{background:rgba(229,57,53,0.12);border:2px solid var(--red);padding:16px 20px;text-align:center;}
+  .conf-icon{font-size:26px;margin-bottom:8px;}
+  .conf-text{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+  .conf-sub{font-size:11px;color:var(--gray);margin-top:5px;}
+  .main{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  .anchor{display:block;height:90px;margin-top:-90px;visibility:hidden;}
+  .section{margin-bottom:44px;opacity:0;transform:translateY(16px);transition:all 0.4s ease;}
+  .section.visible{opacity:1;transform:translateY(0);}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--dark4);display:flex;align-items:center;gap:10px;}
+  .art-num{background:var(--red);color:white;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;padding:3px 10px;border-radius:2px;}
+  .article{background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--red);margin-bottom:16px;overflow:hidden;}
+  .article-header{padding:10px 16px;background:var(--dark3);border-bottom:1px solid var(--dark4);display:flex;align-items:center;gap:12px;}
+  .article-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);}
+  .article-body{padding:16px;}
+  .hmf-table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+  .hmf-table th{background:var(--dark3);color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--red);}
+  .hmf-table td{padding:10px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);vertical-align:top;line-height:1.55;font-size:13px;}
+  .hmf-table tr:hover td{background:rgba(229,57,53,0.03);}
+  .hmf-table td strong{color:var(--white);}
+  .hmf-table td:first-child{color:var(--white);font-weight:600;}
+  .rule-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .rule-list li{font-size:14px;color:var(--gray);line-height:1.65;padding-left:16px;position:relative;}
+  .rule-list li::before{content:'›';position:absolute;left:0;color:var(--red);font-weight:900;font-size:16px;line-height:1.3;}
+  .info-box{padding:12px 16px;border-radius:2px;font-size:13px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;margin:10px 0;}
+  .info-box.danger{background:rgba(229,57,53,0.08);border:1px solid rgba(229,57,53,0.3);color:#ef9a9a;}
+  .info-box.warning{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.3);color:var(--amber);}
+  .info-box.success{background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.25);color:#81c784;}
+  .site-footer{background:var(--dark2);border-top:3px solid var(--red);padding:28px 24px;text-align:center;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;color:var(--red);margin-bottom:6px;}
+  .footer-sub{font-size:12px;color:var(--gray2);letter-spacing:1px;margin-bottom:14px;}
+  .footer-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .footer-link{color:var(--orange);text-decoration:none;font-size:12px;letter-spacing:1px;border-bottom:1px solid transparent;transition:border-color 0.15s;}
+  .footer-link:hover{border-bottom-color:var(--orange);}
+  @media(max-width:768px){.nav-links,.nav-actions{display:none;}.burger{display:flex;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="#"><div class="nav-badge">🔒</div><span class="nav-title"><small>CONFIDENTIEL — Réservé aux employés HMF</small>Règlement Staff</span></a>
+  <ul class="nav-links">
+    <li><a href="#composition">Composition</a></li>
+    <li><a href="#obligations">Obligations</a></li>
+    <li><a href="#exemplarité">Exemplarité</a></li>
+    <li><a href="#impartialite">Impartialité</a></li>
+    <li><a href="#confidentialite">Confidentialité</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/hmf-guide-staff.html">Guide Staff</a>
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+  </div>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#composition" onclick="closeMenu()">1. Composition</a>
+  <a href="#obligations" onclick="closeMenu()">2. Obligations</a>
+  <a href="#exemplarité" onclick="closeMenu()">3. Exemplarité</a>
+  <a href="#impartialite" onclick="closeMenu()">4. Impartialité</a>
+  <a href="#confidentialite" onclick="closeMenu()">5. Confidentialité</a>
+  <a href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">CONFIDENTIEL — Horizon Motorsport Fédération</div>
+      <h1>Règlement<br>Interne Staff</h1>
+      <p class="hero-desc">Document réservé exclusivement aux membres du staff HMF. Sa <strong>divulgation à des membres externes constitue une faute grave</strong> pouvant entraîner une exclusion immédiate du staff.</p>
+    </div>
+    <div class="hero-right">
+      <div class="conf-box"><div class="conf-icon">🔒</div><div class="conf-text">Confidentiel</div><div class="conf-sub">Ne pas diffuser aux membres · Saison 2026</div></div>
+      <div style="background:var(--dark2);border:1px solid var(--dark4);padding:12px 16px;margin-top:8px;">
+        <div style="font-size:9px;color:var(--gray2);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Destinataires</div>
+        <div style="font-size:13px;color:var(--white);">Directeur Sportif · Commissaires · Responsable Paris</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- COMPOSITION -->
+  <span class="anchor" id="composition"></span>
+  <div class="section">
+    <div class="section-title"><span class="art-num">ART. 1</span> Composition du Staff</div>
+    <div class="article">
+      <div class="article-header"><span class="article-title">1.1 — Postes et Attributions</span></div>
+      <div class="article-body">
+        <table class="hmf-table">
+          <thead><tr><th>Niv.</th><th>Poste</th><th>Missions principales</th><th>Disponibilité</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Président / Fondateur</strong></td><td>Direction générale, arbitrages finaux, décisions stratégiques, représentation publique de la HMF.</td><td>Selon disponibilité</td></tr>
+            <tr><td>2</td><td><strong>Directeur Sportif (DS)</strong></td><td>Gestion quotidienne, inscriptions, planning, annonces officielles, coordination du staff, validation cotes.</td><td style="color:var(--red)">Min. 4h/semaine + jour de course</td></tr>
+            <tr><td>3</td><td><strong>Commissaire Sportif</strong></td><td>Surveillance des courses, traitement des réclamations, application du règlement, rédaction des rapports d'incident.</td><td style="color:var(--red)">Présent à chaque course</td></tr>
+            <tr><td>4</td><td><strong>Responsable Paris</strong></td><td>Fixation et publication des cotes, vérification des paris, calcul des gains, mise à jour classement parieurs.</td><td style="color:var(--amber)">48h avant chaque course + après résultats</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header"><span class="article-title">1.2 — Recrutement & Fin de Mandat</span></div>
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>Tout recrutement au sein du staff est décidé par le Président, sur proposition du Directeur Sportif.</li>
+          <li>Un <strong>entretien Discord est obligatoire</strong> avant toute intégration.</li>
+          <li>Une période d'essai de <strong>2 manches</strong> est appliquée à tout nouveau membre du staff.</li>
+          <li>Le staff est bénévole. Aucune rémunération en argent réel n'est prévue.</li>
+          <li>Un membre du staff peut démissionner à tout moment, avec un <strong>préavis de 7 jours</strong>.</li>
+          <li>En fin de mandat, le membre redevient membre classique de la HMF (s'il le souhaite).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBLIGATIONS -->
+  <span class="anchor" id="obligations"></span>
+  <div class="section">
+    <div class="section-title"><span class="art-num">ART. 2</span> Obligations Générales</div>
+
+    <span class="anchor" id="exemplarité"></span>
+    <div class="article">
+      <div class="article-header"><span class="article-title">2.1 — Exemplarité</span></div>
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>Le staff se doit d'être irréprochable dans son comportement, tant en cours de championnat que sur Discord.</li>
+          <li>Un membre du staff ne doit jamais se placer au-dessus des règles qu'il applique.</li>
+          <li>Tout abus de pouvoir (favoritisme, sanction injustifiée, pression sur un membre) est une <strong>faute grave</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="anchor" id="impartialite"></span>
+    <div class="article">
+      <div class="article-header"><span class="article-title">2.2 — Impartialité</span></div>
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>Un membre du staff ne peut pas traiter un dossier impliquant un ami proche ou un allié connu. Il doit se déporter et confier le dossier à un collègue.</li>
+          <li>Le Commissaire Sportif ne peut pas sanctionner un pilote de sa propre écurie s'il en possède une (conflit d'intérêts obligatoire à déclarer).</li>
+          <li>Les décisions du staff ne doivent jamais être influencées par des relations personnelles.</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="anchor" id="confidentialite"></span>
+    <div class="article">
+      <div class="article-header"><span class="article-title">2.3 — Confidentialité</span></div>
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>Les délibérations internes du staff sont strictement confidentielles.</li>
+          <li>Les dossiers disciplinaires, les réclamations en cours et les décisions non encore publiées ne doivent pas être divulgués.</li>
+          <li>Toute fuite d'information interne est une faute grave passible d'exclusion immédiate du staff.</li>
+        </ul>
+        <div class="info-box danger"><span>🚫</span><span>La divulgation de ce document ou de son contenu à des membres non-staff constitue une <strong>faute grave immédiate</strong>.</span></div>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header"><span class="article-title">2.4 — Disponibilité & Réactivité</span></div>
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>Chaque membre du staff s'engage à répondre aux messages Discord dans un délai maximum de <strong>24h</strong>.</li>
+          <li>En cas d'indisponibilité prolongée (voyage, maladie, etc.), le membre du staff doit en informer le DS à l'avance.</li>
+        </ul>
+        <div class="info-box warning" style="margin-top:8px"><span>⚠️</span><span>Le staff est la vitrine de la HMF. Tout comportement inapproprié d'un membre du staff impacte l'image de toute l'association.</span></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">RÈGLEMENT STAFF — HMF CONFIDENTIEL</div>
+    <div class="footer-sub">Président Fondateur : Zak Boulkif · FlashBack FA · Saison 2026 · Ne pas diffuser</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-staff.html">Guide Staff</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-cotes.html">Guide Cotes</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-reglement.html">Règlement HMF</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/index.html">GP Horizon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
+  function closeMenu(){document.getElementById('mobileNav').classList.remove('open');}
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.05});
+  document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+  const anchors=document.querySelectorAll('.anchor');
+  window.addEventListener('scroll',()=>{let cur='';anchors.forEach(a=>{if(window.scrollY>=a.offsetTop-120)cur=a.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+</script>
+</body>
+</html>

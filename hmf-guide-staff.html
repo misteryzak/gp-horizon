@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Staff — HMF Usage Interne</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF4500;--gold:#FFD700;--amber:#FF8C00;--dark:#0A0A0A;--dark2:#141414;--dark3:#1C1C1C;--dark4:#262626;--white:#F2F2F2;--gray:#909090;--gray2:#606060;}
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{background:var(--dark);font-family:'Barlow',sans-serif;color:var(--white);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--dark2);}::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:3px solid #E53935;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+  .nav-badge{width:50px;height:50px;border-radius:50%;background:#E53935;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;color:white;box-shadow:0 0 18px rgba(229,57,53,0.5);flex-shrink:0;}
+  .nav-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--white);line-height:1.1;}
+  .nav-title small{display:block;font-size:10px;letter-spacing:3px;color:#E53935;font-weight:700;}
+  .nav-links{display:flex;gap:2px;list-style:none;flex:1;justify-content:center;flex-wrap:wrap;}
+  .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:7px 11px;border-radius:3px;transition:all 0.15s;white-space:nowrap;}
+  .nav-links a:hover{color:#E53935;background:rgba(229,57,53,0.1);}
+  .nav-links a.active{color:#E53935;background:rgba(229,57,53,0.08);}
+  .nav-actions{display:flex;gap:8px;flex-shrink:0;}
+  .nav-btn{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--orange);transition:all 0.15s;white-space:nowrap;}
+  .nav-btn:hover{background:var(--orange);color:white;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+  .burger span{width:22px;height:2px;background:var(--gray);border-radius:2px;}
+  .mobile-nav{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid var(--dark4);padding:12px 20px;flex-direction:column;gap:2px;z-index:99;}
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:10px 12px;border-radius:3px;}
+  .hero{margin-top:76px;background:linear-gradient(180deg,#060606 0%,var(--dark) 100%);border-bottom:3px solid #E53935;padding:52px 24px 36px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-100px;right:-150px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(229,57,53,0.06) 0%,transparent 65%);pointer-events:none;}
+  .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:1;}
+  .hero-left{flex:1;min-width:280px;}
+  .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:#E53935;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .hero-tag::before{content:'';width:24px;height:2px;background:#E53935;}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,56px);letter-spacing:3px;line-height:1;text-transform:uppercase;margin-bottom:12px;background:linear-gradient(90deg,#fff 30%,#E53935 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-desc{font-size:14px;color:var(--gray);line-height:1.7;max-width:560px;font-style:italic;}
+  .hero-desc strong{color:var(--white);font-style:normal;}
+  .hero-right{display:flex;flex-direction:column;gap:8px;}
+  .confidential{background:rgba(229,57,53,0.12);border:2px solid #E53935;padding:14px 20px;text-align:center;}
+  .confidential .icon{font-size:24px;margin-bottom:6px;}
+  .confidential .text{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#E53935;}
+  .confidential .sub{font-size:11px;color:var(--gray);margin-top:4px;}
+  .main{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  .anchor{display:block;height:90px;margin-top:-90px;visibility:hidden;}
+  .section{margin-bottom:44px;opacity:0;transform:translateY(16px);transition:all 0.4s ease;}
+  .section.visible{opacity:1;transform:translateY(0);}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--dark4);display:flex;align-items:center;gap:10px;}
+  .section-num{background:#E53935;color:white;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;padding:3px 10px;border-radius:2px;}
+  .subsection{margin-bottom:20px;background:var(--dark2);border:1px solid var(--dark4);border-left:4px solid var(--orange);overflow:hidden;}
+  .subsection-header{padding:10px 16px;background:var(--dark3);border-bottom:1px solid var(--dark4);}
+  .subsection-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);}
+  .subsection-body{padding:16px;}
+  .steps{display:flex;flex-direction:column;gap:6px;}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--dark4);}
+  .step:last-child{border-bottom:none;}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step-content{flex:1;}
+  .step-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:3px;}
+  .step-desc{font-size:13px;color:var(--gray);line-height:1.6;}
+  .step-desc strong{color:var(--white);}
+  .hmf-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  .hmf-table th{background:var(--dark3);color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--orange);}
+  .hmf-table td{padding:9px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);vertical-align:top;line-height:1.55;font-size:13px;}
+  .hmf-table tr:hover td{background:rgba(255,69,0,0.03);}
+  .hmf-table td strong{color:var(--white);}
+  .hmf-table td:first-child{color:var(--white);}
+  .info-box{padding:12px 16px;border-radius:2px;font-size:13px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;margin:10px 0;}
+  .info-box.warning{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.3);color:var(--amber);}
+  .info-box.info{background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.25);color:#64b5f6;}
+  .info-box.success{background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.25);color:#81c784;}
+  .info-box.danger{background:rgba(229,57,53,0.08);border:1px solid rgba(229,57,53,0.3);color:#ef9a9a;}
+  .errors-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .errors-table th{background:#E53935;color:white;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;text-align:left;}
+  .errors-table td{padding:10px 12px;color:var(--gray);border-bottom:1px solid var(--dark4);background:var(--dark2);vertical-align:top;line-height:1.55;}
+  .errors-table td:first-child{color:var(--white);font-weight:600;}
+  .errors-table td:last-child{color:#81c784;}
+  .site-footer{background:var(--dark2);border-top:3px solid #E53935;padding:28px 24px;text-align:center;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;color:#E53935;margin-bottom:6px;}
+  .footer-sub{font-size:12px;color:var(--gray2);letter-spacing:1px;margin-bottom:14px;}
+  .footer-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .footer-link{color:var(--orange);text-decoration:none;font-size:12px;letter-spacing:1px;border-bottom:1px solid transparent;transition:border-color 0.15s;}
+  .footer-link:hover{border-bottom-color:var(--orange);}
+  @media(max-width:768px){.nav-links,.nav-actions{display:none;}.burger{display:flex;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="#"><div class="nav-badge">🔒</div><span class="nav-title"><small>CONFIDENTIEL — Usage interne HMF</small>Guide Staff</span></a>
+  <ul class="nav-links">
+    <li><a href="#acces">Accès Sheets</a></li>
+    <li><a href="#pilotes">Pilotes & Écuries</a></li>
+    <li><a href="#resultats">Résultats</a></li>
+    <li><a href="#paris">Calcul Paris</a></li>
+    <li><a href="#cotes">Cotes</a></li>
+    <li><a href="#erreurs">Erreurs</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/hmf-guide-cotes.html">Guide Cotes</a>
+    <a class="nav-btn" href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+  </div>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#acces" onclick="closeMenu()">1. Accès Google Sheets</a>
+  <a href="#pilotes" onclick="closeMenu()">2. Pilotes & Écuries</a>
+  <a href="#resultats" onclick="closeMenu()">3. Résultats de course</a>
+  <a href="#paris" onclick="closeMenu()">4. Calcul des paris</a>
+  <a href="#cotes" onclick="closeMenu()">5. Gestion des cotes</a>
+  <a href="#erreurs" onclick="closeMenu()">6. Erreurs fréquentes</a>
+  <a href="https://misteryzak.github.io/gp-horizon/index.html">← GP Horizon</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">CONFIDENTIEL — Horizon Motorsport Fédération</div>
+      <h1>Guide<br>Staff</h1>
+      <p class="hero-desc">Manuel interne de gestion du championnat via <strong>Google Sheets & Apps Script</strong>. Destiné au Directeur Sportif, Commissaires et Responsable Paris.</p>
+    </div>
+    <div class="hero-right">
+      <div class="confidential"><div class="icon">🔒</div><div class="text">Document Confidentiel</div><div class="sub">Ne pas diffuser aux membres</div></div>
+      <div style="background:var(--dark2);border:1px solid var(--dark4);padding:12px 16px;margin-top:8px;">
+        <div style="font-size:9px;color:var(--gray2);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Destinataires</div>
+        <div style="font-size:13px;color:var(--white);">DS · Commissaires · Resp. Paris</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- 1. ACCÈS SHEETS -->
+  <span class="anchor" id="acces"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">1</span> Accéder au Google Sheets</div>
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">Étapes d'accès</div></div>
+      <div class="subsection-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Ouvrir Google Drive</div><div class="step-desc">Ouvre <strong>drive.google.com</strong> avec le compte Google de la HMF. Recherche le fichier <strong>"GP HORIZON — Base de données"</strong>.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Vérifier les onglets</div><div class="step-desc">Vérifie que tu vois les onglets : <strong>Pilotes, Ecuries, Calendrier, Cotes, Historique_Paris, Resultats_Courses, Parieurs</strong>.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Vérifier l'Apps Script</div><div class="step-desc">Dans Sheets, clique sur <strong>Extensions > Apps Script</strong>. Vérifie que le script est déployé (Déployer > Gérer les déploiements). Le statut doit indiquer <strong>"Actif"</strong>.</div></div></div>
+        </div>
+        <div class="info-box info"><span>ℹ️</span><span>L'URL du script déployé doit être identique à celle renseignée dans les pages HTML du site. En cas de redéploiement, pense à mettre à jour cette URL dans tous les fichiers HTML.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PILOTES & ÉCURIES -->
+  <span class="anchor" id="pilotes"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">2</span> Gérer les Pilotes & Écuries</div>
+
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">2.1 — Ajouter un pilote</div></div>
+      <div class="subsection-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Onglet Pilotes_Cards</div><div class="step-desc">Vérifie les informations du nouveau pilote : Numéro, Nom, Écurie, Photo URL, Couleur Bordure, Biographie. Corrige les erreurs de saisie.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Onglet Pilotes — Classement</div><div class="step-desc">Trouve la première ligne vide. Renseigne : Position, Nom Pilote, Écurie, Points (0), Victoires (0), Podiums (0). Le site se met à jour automatiquement.</div></div></div>
+        </div>
+        <div class="info-box warning"><span>⚠️</span><span>Ne modifie jamais la ligne d'en-tête (ligne 2 en rouge). Commence toujours à partir de la ligne 3.</span></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">2.2 — Ajouter une écurie</div></div>
+      <div class="subsection-body">
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:10px;">Ouvre l'onglet <strong>Ecuries</strong> et renseigne sur la première ligne vide :</p>
+        <table class="hmf-table">
+          <thead><tr><th>Champ</th><th>Valeur attendue</th></tr></thead>
+          <tbody>
+            <tr><td>Position</td><td>Numéro de position dans le classement</td></tr>
+            <tr><td>Nom Écurie</td><td>Nom exact de l'écurie</td></tr>
+            <tr><td>Couleur</td><td>Code hexadécimal fourni par l'entreprise (ex: #E74C3C)</td></tr>
+            <tr><td>Logo URL</td><td>Lien direct vers le logo hébergé (imgur, discord CDN...)</td></tr>
+            <tr><td>Photo Voiture URL</td><td>Lien direct vers la photo de la voiture</td></tr>
+            <tr><td>Points / Victoires / Podiums</td><td>0 pour une nouvelle écurie</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box success" style="margin-top:10px"><span>✅</span><span>Une fois l'écurie ajoutée, elle apparaît automatiquement dans le menu "Les Écuries" du site.</span></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">2.3 — Mise à jour automatique du classement</div></div>
+      <div class="subsection-body">
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">Le classement est mis à jour automatiquement par la fonction <strong>toutCalculer()</strong> après chaque course. Le script attribue les points selon le barème officiel (<strong>25/18/15/12/10/8/6/4/2/1</strong>), met à jour les victoires/podiums et trie le classement. <strong>Aucune saisie manuelle de points requise.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. RÉSULTATS -->
+  <span class="anchor" id="resultats"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">3</span> Saisir les Résultats d'une Course</div>
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">Étapes de saisie</div></div>
+      <div class="subsection-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Ouvrir Resultats_Courses</div><div class="step-desc">Repère la ligne correspondant à la manche qui vient de se terminer.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Renseigner les résultats</div><div class="step-desc">
+            <table class="hmf-table" style="margin-top:6px">
+              <thead><tr><th>Colonne</th><th>Ce qu'il faut saisir</th></tr></thead>
+              <tbody>
+                <tr><td>Manche</td><td>Doit correspondre exactement au nom du Calendrier (ex : "Manche 3")</td></tr>
+                <tr><td>Date</td><td>Format JJ/MM/AAAA</td></tr>
+                <tr><td>Pilote Gagnant (P1)</td><td>Nom exact identique à la feuille Pilotes</td></tr>
+                <tr><td>Podium P2 / P3</td><td>Noms exacts des pilotes 2ème et 3ème</td></tr>
+                <tr><td>Écurie Gagnante</td><td>Nom exact de l'écurie du pilote P1</td></tr>
+                <tr><td>Traité</td><td>Laisser sur "NON" — le script le passe automatiquement à "OUI"</td></tr>
+              </tbody>
+            </table>
+          </div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Mettre à jour le Calendrier</div><div class="step-desc">Ouvre l'onglet Calendrier. Passe le Statut de la manche de <strong>"À venir"</strong> à <strong>"Terminée"</strong>. Renseigne le nom du Vainqueur.</div></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Vérifier le classement</div><div class="step-desc">Ouvre les onglets Pilotes et Ecuries — les points, victoires et podiums sont mis à jour automatiquement. Les deux feuilles sont triées par points décroissants automatiquement.</div></div></div>
+        </div>
+        <div class="info-box warning"><span>⚠️</span><span>Les noms des pilotes et des écuries dans Resultats_Courses doivent être EXACTEMENT identiques à ceux des feuilles Pilotes et Ecuries, sinon le calcul des paris sera incorrect.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. PARIS -->
+  <span class="anchor" id="paris"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">4</span> Calculer les Paris après une Manche</div>
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">Procédure de calcul</div></div>
+      <div class="subsection-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Vérifier les résultats</div><div class="step-desc">Assure-toi que la colonne "Traité" est bien sur <strong>"NON"</strong> pour la manche concernée. Vérifie P1, P2, P3 et Écurie Gagnante.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Lancer toutCalculer()</div><div class="step-desc">Dans Google Sheets : <strong>Extensions > Apps Script</strong>. Sélectionne la fonction <strong>toutCalculer</strong> dans le menu déroulant. Clique sur ▶ Exécuter. Attends le message de confirmation : <strong>"✅ Tout est à jour !"</strong></div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Vérifier les résultats</div><div class="step-desc">Ouvre l'onglet <strong>Historique_Paris</strong>. Vérifie que la colonne "Statut" affiche "Gagnant" ou "Perdant" pour chaque pari. Ouvre l'onglet <strong>Parieurs</strong> et vérifie que les gains ont été mis à jour.</div></div></div>
+        </div>
+        <div class="info-box success"><span>✅</span><span>toutCalculer() fait deux choses en une : met à jour le classement pilotes & écuries ET calcule les gains des parieurs. C'est la seule fonction à lancer après chaque course.</span></div>
+        <table class="hmf-table" style="margin-top:12px">
+          <thead><tr><th>Type de pari</th><th>Condition de victoire</th></tr></thead>
+          <tbody>
+            <tr><td>Pilote Gagnant</td><td>Le pilote parié est exactement le P1 de la course.</td></tr>
+            <tr><td>Pilote Podium</td><td>Le pilote parié est P1, P2 ou P3 (n'importe quel podium).</td></tr>
+            <tr><td>Écurie Gagnante</td><td>L'écurie pariée est celle du pilote P1.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. COTES -->
+  <span class="anchor" id="cotes"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">5</span> Ajouter / Modifier les Cotes</div>
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">Structure de la feuille Cotes</div></div>
+      <div class="subsection-body">
+        <table class="hmf-table">
+          <thead><tr><th>Champ</th><th>Valeur attendue</th></tr></thead>
+          <tbody>
+            <tr><td>Type</td><td>"Pilote" ou "Écurie" (sensible à la casse)</td></tr>
+            <tr><td>Nom</td><td>Nom exact du pilote ou de l'écurie (doit correspondre aux données du site)</td></tr>
+            <tr><td>Cote Victoire</td><td>Nombre décimal (ex: 2.5). Obligatoire pour les deux types.</td></tr>
+            <tr><td>Cote Podium</td><td>Nombre décimal (ex: 1.6). Uniquement pour les pilotes.</td></tr>
+            <tr><td>Actif</td><td>"OUI" = affiché sur le site. "NON" = masqué (pilote absent/suspendu).</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box warning" style="margin-top:10px"><span>⚠️</span><span>Ne modifie jamais les cotes après la fermeture des paris d'une manche. Cela fausserait le calcul des gains pour les parieurs ayant déjà misé.</span></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-header"><div class="subsection-title">Fourchettes de cotes recommandées</div></div>
+      <div class="subsection-body">
+        <table class="hmf-table">
+          <thead><tr><th>Profil du pilote</th><th>Cote Victoire</th><th>Cote Podium</th></tr></thead>
+          <tbody>
+            <tr><td>Grand favori (dominant)</td><td style="color:var(--orange)">1.5 — 2.5</td><td>1.1 — 1.4</td></tr>
+            <tr><td>Prétendant sérieux</td><td style="color:var(--amber)">2.5 — 4.0</td><td>1.4 — 1.8</td></tr>
+            <tr><td>Outsider</td><td>4.0 — 7.0</td><td>1.8 — 2.5</td></tr>
+            <tr><td>Pilote inconnu / débutant</td><td>7.0 — 15.0</td><td>2.5 — 5.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ERREURS -->
+  <span class="anchor" id="erreurs"></span>
+  <div class="section">
+    <div class="section-title"><span class="section-num">6</span> Erreurs Fréquentes & Solutions</div>
+    <div class="subsection">
+      <div class="subsection-body" style="padding:0">
+        <table class="errors-table">
+          <thead><tr><th>Problème</th><th>Solution</th></tr></thead>
+          <tbody>
+            <tr><td>Le site n'affiche pas les nouvelles données</td><td>Vide le cache (Ctrl+Shift+R). Si persistant, vérifie que le script est bien déployé.</td></tr>
+            <tr><td>Le calcul des paris ne se lance pas</td><td>Vérifie que les résultats de la manche sont saisis et que la colonne "Traité" est sur "NON".</td></tr>
+            <tr><td>Des parieurs n'ont pas reçu leurs gains</td><td>Vérifie que le nom du pilote dans Resultats_Courses est EXACTEMENT identique à celui dans Historique_Paris.</td></tr>
+            <tr><td>L'onglet Historique_Paris est vide</td><td>Aucun pari soumis ou feuille non créée. Lance setupAll() depuis Apps Script.</td></tr>
+            <tr><td>Une écurie n'apparaît pas dans le menu</td><td>Vérifie que le Nom Écurie est bien renseigné dans la feuille Ecuries et que la ligne n'est pas vide.</td></tr>
+            <tr><td>Erreur d'autorisation dans Apps Script</td><td>Lance setupAll() manuellement et accepte les autorisations demandées par Google.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">GUIDE STAFF — HMF CONFIDENTIEL</div>
+    <div class="footer-sub">Président Fondateur : Zak Boulkif · FlashBack FA · Saison 2026 · Ne pas diffuser</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-guide-cotes.html">Guide Cotes</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-reglement-staff.html">Règlement Staff</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/hmf-reglement.html">Règlement HMF</a>
+      <a class="footer-link" href="https://misteryzak.github.io/gp-horizon/index.html">GP Horizon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
+  function closeMenu(){document.getElementById('mobileNav').classList.remove('open');}
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.05});
+  document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+  const anchors=document.querySelectorAll('.anchor');
+  window.addEventListener('scroll',()=>{let cur='';anchors.forEach(a=>{if(window.scrollY>=a.offsetTop-120)cur=a.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+</script>
+</body>
+</html>
