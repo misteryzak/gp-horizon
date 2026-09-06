@@ -710,7 +710,7 @@
         });
 
         // Form Écurie Handler
-        const ECURIE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        const ECURIE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2H6AgPU6wo4cXry4J4fPSsFrx18Li2TCiEHOPd3y9Gm42IQCudRRmDfj-U1alyunr/exec';
         const ecurieForm = document.getElementById('ecurieForm');
         if (ecurieForm) {
             ecurieForm.addEventListener('submit', async function(e) {
@@ -723,7 +723,7 @@
                 try {
                     const response = await fetch(ECURIE_SCRIPT_URL, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             form_type: 'ecurie',
                             nom_ecurie: data.nom_ecurie,
@@ -786,7 +786,7 @@
         });
 
         // Charger les écuries dans la nav
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2H6AgPU6wo4cXry4J4fPSsFrx18Li2TCiEHOPd3y9Gm42IQCudRRmDfj-U1alyunr/exec';
         const ecuriesNavMenu = document.getElementById('ecuries-nav-menu');
         if (ecuriesNavMenu) {
             fetch(`${SCRIPT_URL}?sheet=Ecuries_Nav`)
@@ -801,7 +801,7 @@
         }
     
     // ===== MEGA MENU ÉCURIES =====
-    const MEGAMENU_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
+    const MEGAMENU_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2H6AgPU6wo4cXry4J4fPSsFrx18Li2TCiEHOPd3y9Gm42IQCudRRmDfj-U1alyunr/exec';
     const MEGAMENU_COLORS = ['#E74C3C','#F39C12','#3498DB','#2ECC71','#9B59B6','#1ABC9C','#E67E22','#34495E','#E91E63','#00BCD4'];
     const MEGAMENU_CAR_DEMO = 'https://i.imgur.com/JYKj2KS.png';
     const MEGAMENU_DEMO = [
