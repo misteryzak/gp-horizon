@@ -694,7 +694,7 @@
                 try {
                     const response = await fetch(INSCRIPTION_SCRIPT_URL, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             form_type: 'licence',
                             nom_prenom_rp: data.nom_prenom_rp,
