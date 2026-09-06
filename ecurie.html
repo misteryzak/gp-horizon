@@ -710,6 +710,7 @@
         });
 
         // Form Écurie Handler
+        const ECURIE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHTMWOXQEmoS48G3EBxOq2TjOPVBBwFtr4FRoI3QwJJNV8xHcExoZrOPbz97Tr5CfW/exec';
         const ecurieForm = document.getElementById('ecurieForm');
         if (ecurieForm) {
             ecurieForm.addEventListener('submit', async function(e) {
@@ -718,82 +719,46 @@
                 // Récupérer les données du formulaire
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData);
-                
-                // Créer la liste des pilotes
-                let pilotes = '';
-                if (data.pilote1) pilotes += `**Pilote 1 :** ${data.pilote1}`;
-                if (data.pilote2) pilotes += `\n**Pilote 2 :** ${data.pilote2}`;
-                if (data.pilote3) pilotes += `\n**Pilote 3 :** ${data.pilote3}`;
-                if (data.pilote4) pilotes += `\n**Pilote 4 :** ${data.pilote4}`;
-
-                // Créer le message Discord formaté
-                const discordMessage = {
-                    embeds: [{
-                        title: "🏁 NOUVELLE ÉCURIE",
-                        color: 3447003, // Bleu #3498DB
-                        fields: [
-                            {
-                                name: "🏢 Nom de l'Écurie",
-                                value: `**${data.nom_ecurie}**`,
-                                inline: false
-                            },
-                            {
-                                name: "🎨 Couleurs",
-                                value: `Principal: ${data.couleur1}\nSecondaire: ${data.couleur2}`,
-                                inline: false
-                            },
-                            {
-                                name: "👔 Chef d'Écurie",
-                                value: `**Nom :** ${data.nom_chef}\n**Discord :** ${data.discord_chef}\n**Téléphone :** ${data.telephone_chef}`,
-                                inline: false
-                            },
-                            {
-                                name: "👥 Pilotes de l'Écurie",
-                                value: pilotes,
-                                inline: false
-                            },
-                            {
-                                name: "📝 Description",
-                                value: data.description || "Aucune description",
-                                inline: false
-                            }
-                        ],
-                        footer: {
-                            text: "GP Horizon • Horizon Motorsport Federation"
-                        },
-                        timestamp: new Date().toISOString(),
-                        thumbnail: {
-                            url: "https://em-content.zobj.net/source/twitter/376/racing-car_1f3ce-fe0f.png"
-                        }
-                    }]
-                };
 
                 try {
-                    // Envoyer vers Discord
-                    const response = await fetch('https://discord.com/api/webhooks/1472000786954322092/r-fbtNg3C8gXp-g5ktWVXJwzQJECAEpxKcz5xtaymkezD-6RauKofHYH8g1mwarxhMzh', {
+                    const response = await fetch(ECURIE_SCRIPT_URL, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(discordMessage)
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            form_type: 'ecurie',
+                            nom_ecurie: data.nom_ecurie,
+                            couleur1: data.couleur1,
+                            couleur2: data.couleur2,
+                            nom_chef: data.nom_chef,
+                            telephone_chef: data.telephone_chef,
+                            discord_chef: data.discord_chef,
+                            pilote1: data.pilote1,
+                            pilote2: data.pilote2,
+                            pilote3: data.pilote3 || '',
+                            pilote4: data.pilote4 || '',
+                            description: data.description || '',
+                            accept_ecurie: !!data.accept_ecurie
+                        })
                     });
 
-                    if (response.ok) {
+                    const result = await response.json();
+
+                    if (result.success) {
                         // Afficher le message de succès
                         document.getElementById('successEcurie').classList.add('show');
-                        
+
                         // Réinitialiser le formulaire
                         this.reset();
-                        
+
                         // Faire défiler vers le message de succès
                         document.getElementById('successEcurie').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
+
                         // Cacher le message après 10 secondes
                         setTimeout(function() {
                             document.getElementById('successEcurie').classList.remove('show');
                         }, 10000);
                     } else {
-                        alert('Erreur lors de l\'envoi. Veuillez réessayer ou contactez un administrateur.');
+                        alert('Erreur lors de l\'envoi : ' + (result.message || 'Veuillez réessayer ou contactez un administrateur.'));
                     }
                 } catch (error) {
                     console.error('Erreur:', error);
